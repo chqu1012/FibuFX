@@ -8,9 +8,9 @@
 <?import javafx.scene.text.Font?>
 
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="main-pane" stylesheets="@css/Main.css" xmlns="http://javafx.com/javafx/8.0.162" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="root" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="main-pane" stylesheets="@css/Main.css" xmlns="http://javafx.com/javafx/8.0.162" xmlns:fx="http://javafx.com/fxml/1">
    <top>
-      <HBox alignment="CENTER_LEFT" prefHeight="52.0" prefWidth="1000.0" spacing="10.0" styleClass="top-pane" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER_LEFT" prefHeight="52.0" prefWidth="1000.0" styleClass="top-pane" BorderPane.alignment="CENTER">
          <children>
             <Label text="FibuFX" textFill="WHITE">
                <HBox.margin>
@@ -20,51 +20,69 @@
                   <Font name="System Bold" size="30.0" />
                </font>
             </Label>
-            <Label text="Dashboard" textFill="#ebebeb">
+            <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="menu-label" text="Dashboard" textFill="#ebebeb">
                <font>
                   <Font size="18.0" />
                </font>
                <HBox.margin>
                   <Insets left="40.0" />
                </HBox.margin>
+               <padding>
+                  <Insets left="15.0" right="15.0" />
+               </padding>
             </Label>
-            <Label text="Buchen" textFill="#ebebeb">
+            <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="menu-label" text="Buchen" textFill="#ebebeb">
                <font>
                   <Font size="18.0" />
                </font>
+               <padding>
+                  <Insets left="15.0" right="15.0" />
+               </padding>
             </Label>
-            <Label text="Auswertung" textFill="#ebebeb">
+            <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="menu-label" text="Auswertung" textFill="#ebebeb">
                <font>
                   <Font size="18.0" />
                </font>
+               <padding>
+                  <Insets left="15.0" right="15.0" />
+               </padding>
             </Label>
-            <Label text="Stammdaten" textFill="#ebebeb">
+            <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="menu-label" text="Stammdaten" textFill="#ebebeb">
                <font>
                   <Font size="18.0" />
                </font>
+               <padding>
+                  <Insets left="15.0" right="15.0" />
+               </padding>
             </Label>
             <Label maxWidth="1.7976931348623157E308" textFill="#ebebeb" HBox.hgrow="ALWAYS">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label maxWidth="1.7976931348623157E308" text="Max Mustermann" textFill="#ebebeb">
+            <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="menu-label" text="Max Mustermann" textFill="#ebebeb">
                <font>
                   <Font size="18.0" />
                </font>
+               <padding>
+                  <Insets left="15.0" right="15.0" />
+               </padding>
             </Label>
-            <Label maxWidth="1.7976931348623157E308" text="Hilfe" textFill="#ebebeb">
+            <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="menu-label" text="Hilfe" textFill="#ebebeb">
                <font>
                   <Font size="18.0" />
                </font>
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
+               <padding>
+                  <Insets left="15.0" right="15.0" />
+               </padding>
             </Label>
          </children>
       </HBox>
    </top>
    <center>
-      <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER" />
+      <StackPane fx:id="stackPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>
