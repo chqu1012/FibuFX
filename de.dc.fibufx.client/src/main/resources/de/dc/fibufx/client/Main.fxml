@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane fx:id="root" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="main-pane" stylesheets="@css/Main.css" xmlns="http://javafx.com/javafx/8.0.162" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="root" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" styleClass="main-pane" stylesheets="@css/Main.css" xmlns="http://javafx.com/javafx/8.0.241" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dc.fibufx.client.controller.MainController">
    <top>
       <HBox alignment="CENTER_LEFT" prefHeight="52.0" prefWidth="1000.0" styleClass="top-pane" BorderPane.alignment="CENTER">
          <children>
@@ -20,7 +19,7 @@
                   <Font name="System Bold" size="30.0" />
                </font>
             </Label>
-            <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="menu-label" text="Dashboard" textFill="#ebebeb">
+            <Label fx:id="menuDashboard" accessibleHelp="Status.fxml" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#onMouseClicked" styleClass="menu-label" text="Dashboard" textFill="#ebebeb">
                <font>
                   <Font size="18.0" />
                </font>
@@ -31,7 +30,7 @@
                   <Insets left="15.0" right="15.0" />
                </padding>
             </Label>
-            <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="menu-label" text="Buchen" textFill="#ebebeb">
+            <Label fx:id="menuBuchen" accessibleHelp="Rechnungen.fxml" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#onMouseClicked" styleClass="menu-label" text="Buchen" textFill="#ebebeb">
                <font>
                   <Font size="18.0" />
                </font>
@@ -39,7 +38,7 @@
                   <Insets left="15.0" right="15.0" />
                </padding>
             </Label>
-            <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="menu-label" text="Auswertung" textFill="#ebebeb">
+            <Label fx:id="menuAuswertung" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#onMouseClicked" styleClass="menu-label" text="Auswertung" textFill="#ebebeb">
                <font>
                   <Font size="18.0" />
                </font>
@@ -47,7 +46,7 @@
                   <Insets left="15.0" right="15.0" />
                </padding>
             </Label>
-            <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="menu-label" text="Stammdaten" textFill="#ebebeb">
+            <Label fx:id="menuStammdaten" accessibleHelp="Firmendaten.fxml" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#onMouseClicked" styleClass="menu-label" text="Stammdaten" textFill="#ebebeb">
                <font>
                   <Font size="18.0" />
                </font>
@@ -60,7 +59,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="menu-label" text="Max Mustermann" textFill="#ebebeb">
+            <Label fx:id="menuName" accessibleHelp="Benutzerdaten.fxml" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#onMouseClicked" styleClass="menu-label" text="Max Mustermann" textFill="#ebebeb">
                <font>
                   <Font size="18.0" />
                </font>
@@ -68,7 +67,7 @@
                   <Insets left="15.0" right="15.0" />
                </padding>
             </Label>
-            <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="menu-label" text="Hilfe" textFill="#ebebeb">
+            <Label fx:id="menuHelp" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#onMouseClicked" styleClass="menu-label" text="Hilfe" textFill="#ebebeb">
                <font>
                   <Font size="18.0" />
                </font>

@@ -1,9 +1,5 @@
 package de.dc.fibufx.client;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.log4j.Logger;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,8 +11,12 @@ import org.springframework.web.client.RestTemplate;
 import de.dc.fibufx.client.model.Benutzer;
 import javafx.application.Application;
 import javafx.application.HostServices;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 @SpringBootApplication
 public class FibufxClient extends Application{
@@ -32,19 +32,19 @@ public class FibufxClient extends Application{
 	@Override
 	public void init() throws Exception {
 		springContext = SpringApplication.run(FibufxClient.class);
-//		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/de/dc/spring/dmsfx/DmsFXApp.fxml"));
-//		fxmlLoader.setControllerFactory(springContext::getBean);
-//		root = fxmlLoader.load();
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/de/dc/fibufx/client/Main.fxml"));
+		fxmlLoader.setControllerFactory(springContext::getBean);
+		root = fxmlLoader.load();
 	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-//		primaryStage.setTitle("Document Management System");
-//		Scene scene = new Scene(root, 450, 820);
-//		scene.setFill(Color.TRANSPARENT);
-//		primaryStage.initStyle(StageStyle.DECORATED);
-//		primaryStage.setScene(scene);
-//		primaryStage.show();
+		primaryStage.setTitle("FiBu Client");
+		Scene scene = new Scene(root, 1200, 800);
+		scene.setFill(Color.TRANSPARENT);
+		primaryStage.initStyle(StageStyle.DECORATED);
+		primaryStage.setScene(scene);
+		primaryStage.show();
 	}
 
 	@Override
