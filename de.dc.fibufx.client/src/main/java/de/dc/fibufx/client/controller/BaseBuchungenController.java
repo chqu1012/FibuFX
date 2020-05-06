@@ -1,5 +1,6 @@
 package de.dc.fibufx.client.controller;
 
+import de.dc.fibufx.client.model.Buchungsvorgang;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -18,19 +19,19 @@ public abstract class BaseBuchungenController {
 	protected TextField textSearchEinnahmen;
 
 	@FXML
-	protected ListView<String> listViewEinnahmen;
+	protected ListView<Buchungsvorgang> listViewEinnahmen;
 
 	@FXML
 	protected TextField textSearchAusgaben;
 
 	@FXML
-	protected ListView<String> listViewAusgaben;
+	protected ListView<Buchungsvorgang> listViewAusgaben;
 
 	@FXML
 	protected GridPane paneEinnahmen;
 
 	@FXML
-	protected ComboBox<String> comboEinnahmenVorgang;
+	protected ComboBox<Buchungsvorgang> comboEinnahmenVorgang;
 
 	@FXML
 	protected TextField textEinnahmenBetrag;

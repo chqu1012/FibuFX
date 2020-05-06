@@ -1,5 +1,6 @@
 package de.dc.fibufx.client;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,6 +10,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 import de.dc.fibufx.client.model.Benutzer;
+import de.dc.fibufx.client.model.Buchungstype;
+import de.dc.fibufx.client.model.Buchungsvorgang;
+import de.dc.fibufx.client.service.StammdatenService;
 import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +27,8 @@ public class FibufxClient extends Application{
 
 	private ConfigurableApplicationContext springContext;
 	private BorderPane root;
+	
+	@Autowired StammdatenService stammdatenService;
 
 	@Bean
 	public RestTemplate restTemplate(RestTemplateBuilder builder) {
@@ -68,10 +74,20 @@ public class FibufxClient extends Application{
 	@Bean
 	public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
 		return args -> {
+			System.out.println("** BENUTZER *******************************************************************************");
 			Benutzer[] benutzer = restTemplate.getForObject(
 					"http://localhost:2001/kunden", Benutzer[].class);
 			for (Benutzer b : benutzer) {
 				System.out.println(b);
+			}
+			System.out.println("** VORGANG  *******************************************************************************");
+			Buchungsvorgang[] vorgangsListe = restTemplate.getForObject("http://localhost:2001/data/buchungsvorgang", Buchungsvorgang[].class);
+			for (Buchungsvorgang vorgang : vorgangsListe) {
+				if (vorgang.getTyp()==Buchungstype.EINNAHME) {
+					stammdatenService.addEinnahmenTyp(vorgang);
+				}else {
+					stammdatenService.addAusgabenTyp(vorgang);
+				}
 			}
 		};
 	}
