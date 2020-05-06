@@ -6,6 +6,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -34,7 +36,7 @@ public abstract class BaseBuchungenController {
 	protected TextField textEinnahmenBetrag;
 
 	@FXML
-	protected ComboBox<?> comboEinnahmenSteuersatz;
+	protected ComboBox<String> comboEinnahmenSteuersatz;
 
 	@FXML
 	protected DatePicker datepickerEinnahmenDatum;
@@ -44,6 +46,30 @@ public abstract class BaseBuchungenController {
 
 	@FXML
 	protected Button buttonEinnahmenErstellen;
+	
+    @FXML
+    protected TextField textSearchBuchungen;
+
+    @FXML
+    protected TableView<?> tableViewBuchungen;
+
+    @FXML
+    protected TableColumn<?, ?> columnType;
+
+    @FXML
+    protected TableColumn<?, ?> columnVorgang;
+
+    @FXML
+    protected TableColumn<?, ?> columnDatum;
+
+    @FXML
+    protected TableColumn<?, ?> columnBetrag;
+
+    @FXML
+    protected TableColumn<?, ?> columnSteuersatz;
+
+    @FXML
+    protected TableColumn<?, ?> columnBeschreibungen;
 
 	@FXML
 	protected abstract void onButtonAction(ActionEvent event);

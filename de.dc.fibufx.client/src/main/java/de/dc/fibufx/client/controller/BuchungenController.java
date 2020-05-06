@@ -5,7 +5,6 @@ import java.util.Arrays;
 
 import org.springframework.stereotype.Controller;
 
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,11 +16,14 @@ public class BuchungenController extends BaseBuchungenController {
 
 	private ObservableList<String> einnahmeTypen = FXCollections.observableArrayList();
 	private ObservableList<String> ausgabeTypen = FXCollections.observableArrayList();
+	private ObservableList<String> steuerTypen = FXCollections.observableArrayList();
 
 	private FilteredList<String> filteredEinnahmeTypen = new FilteredList<>(einnahmeTypen);
 	private FilteredList<String> filteredAusgabeTypen = new FilteredList<>(ausgabeTypen);
 
 	public void initialize() {
+		steuerTypen.addAll(Arrays.asList("0", "7", "19"));
+		
 		einnahmeTypen.addAll(Arrays.asList("Erlöse", "Lieferungen", "Erlöse §13b UStG", "Eigenverbrauch",
 				"Umsatzssteuervorauszahlung", "Gewerbesteuer", "Zinseinahmen", "Verkauf/Entnahme Pkw",
 				"Verkauf/Entnahme Anlagevermögen", "Versicherungentschädigung", "Sonstige Erlöse"));
@@ -40,7 +42,13 @@ public class BuchungenController extends BaseBuchungenController {
 
 		listViewEinnahmen.setItems(filteredEinnahmeTypen);
 		listViewAusgaben.setItems(filteredAusgabeTypen);
+		comboEinnahmenSteuersatz.setItems(steuerTypen);
 		comboEinnahmenVorgang.setItems(einnahmeTypen);
+		
+		comboEinnahmenVorgang.getSelectionModel().selectFirst();
+		comboEinnahmenSteuersatz.getSelectionModel().selectFirst();
+		
+		buttonEinnahmenErstellen.disableProperty().bind(textEinnahmenBetrag.textProperty().isEmpty());
 		
 		listViewEinnahmen.getSelectionModel().selectedItemProperty().addListener(this::selectEinnahmen);
 		textSearchEinnahmen.textProperty().addListener(this::filterEinnahmen);
