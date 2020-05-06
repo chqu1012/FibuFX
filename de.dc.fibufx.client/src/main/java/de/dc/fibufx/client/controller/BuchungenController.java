@@ -1,12 +1,16 @@
 package de.dc.fibufx.client.controller;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 
 import org.springframework.stereotype.Controller;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.event.ActionEvent;
 
 @Controller
 public class BuchungenController extends BaseBuchungenController {
@@ -36,5 +40,42 @@ public class BuchungenController extends BaseBuchungenController {
 
 		listViewEinnahmen.setItems(filteredEinnahmeTypen);
 		listViewAusgaben.setItems(filteredAusgabeTypen);
+		comboEinnahmenVorgang.setItems(einnahmeTypen);
+		
+		listViewEinnahmen.getSelectionModel().selectedItemProperty().addListener(this::selectEinnahmen);
+		textSearchEinnahmen.textProperty().addListener(this::filterEinnahmen);
+		textSearchAusgaben.textProperty().addListener(this::filterAusgaben);
+		
+		datepickerEinnahmenDatum.setValue(LocalDate.now());
+	}
+	
+	private void selectEinnahmen(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+		if (newValue!=null) {
+			comboEinnahmenVorgang.setValue(newValue);
+		}
+	}
+
+	private void filterAusgaben(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+		if (newValue!=null) {
+			filteredAusgabeTypen.setPredicate(p->{
+				return p==null || p.toLowerCase().contains(newValue.toLowerCase());
+			});
+		}
+	}
+
+	private void filterEinnahmen(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+		if (newValue!=null) {
+			filteredEinnahmeTypen.setPredicate(p->{
+				return p==null || p.toLowerCase().contains(newValue.toLowerCase());
+			});
+		}
+	}
+
+	@Override
+	protected void onButtonAction(ActionEvent event) {
+		Object source = event.getSource();
+		if (source == buttonEinnahmenErstellen) {
+			
+		}
 	}
 }
