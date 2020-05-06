@@ -1,11 +1,15 @@
 package de.dc.fibufx.client.controller;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.client.RestTemplate;
 
+import de.dc.fibufx.client.model.Buchung;
 import de.dc.fibufx.client.model.Buchungsvorgang;
 import de.dc.fibufx.client.service.StammdatenService;
 import javafx.beans.value.ObservableValue;
@@ -22,6 +26,7 @@ import javafx.util.StringConverter;
 public class BuchungenController extends BaseBuchungenController {
 
 	@Autowired StammdatenService stammdatenService;
+	@Autowired RestTemplate restTemplate;
 	
 	private ObservableList<Buchungsvorgang> einnahmeTypen = FXCollections.observableArrayList();
 	private ObservableList<Buchungsvorgang> ausgabeTypen = FXCollections.observableArrayList();
@@ -157,7 +162,13 @@ public class BuchungenController extends BaseBuchungenController {
 	protected void onButtonAction(ActionEvent event) {
 		Object source = event.getSource();
 		if (source == buttonEinnahmenErstellen) {
-			
+			Buchung buchung = new Buchung();
+			buchung.setBetrag(123);
+			buchung.setDatum(LocalDate.now());
+			buchung.setErstelltAm(LocalDateTime.now());
+			buchung.setVorgang(comboEinnahmenVorgang.getSelectionModel().getSelectedItem());
+			HttpEntity<Buchung> request = new HttpEntity<>(buchung);
+			restTemplate.postForObject("http://localhost:2001/createBuchung", request, Buchung.class);
 		}
 	}
 }

@@ -1,26 +1,12 @@
-package de.dc.fibufx.server.model;
+package de.dc.fibufx.client.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-
-@Entity
 public class Buchung {
 
-	@Id
-	@GeneratedValue
 	private Long id;
-
-	@OneToOne(cascade = CascadeType.MERGE)
-	@JoinColumn(name = "vorgang_id", referencedColumnName = "id")
 	private Buchungsvorgang vorgang;
-
 	private double betrag;
 	private String beschreibung;
 	private LocalDate datum;
