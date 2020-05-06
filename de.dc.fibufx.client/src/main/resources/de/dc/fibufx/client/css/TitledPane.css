@@ -7,7 +7,7 @@
 .titled-pane > .title {
     -fx-background-color: #00537D;
     -fx-background-radius: 0;
-    -fx-padding: 10;
+    -fx-padding: 5 10 5 20;
 }
 
 .titled-pane > *.content {
