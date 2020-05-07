@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 import de.dc.fibufx.client.model.Benutzer;
+import de.dc.fibufx.client.model.Buchung;
 import de.dc.fibufx.client.model.Buchungstype;
 import de.dc.fibufx.client.model.Buchungsvorgang;
 import de.dc.fibufx.client.service.StammdatenService;
@@ -89,6 +90,9 @@ public class FibufxClient extends Application{
 					stammdatenService.addAusgabenTyp(vorgang);
 				}
 			}
+			
+			Buchung[] buchungen = restTemplate.getForObject("http://localhost:2001/buchungen", Buchung[].class);
+			stammdatenService.getBuchungen().addAll(buchungen);
 		};
 	}
 }

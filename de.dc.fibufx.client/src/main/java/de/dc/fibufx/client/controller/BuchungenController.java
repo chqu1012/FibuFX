@@ -16,9 +16,13 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 
@@ -30,33 +34,60 @@ public class BuchungenController extends BaseBuchungenController {
 	
 	private ObservableList<Buchungsvorgang> einnahmeTypen = FXCollections.observableArrayList();
 	private ObservableList<Buchungsvorgang> ausgabeTypen = FXCollections.observableArrayList();
+	private ObservableList<Buchung> buchungen = FXCollections.observableArrayList();
 	private ObservableList<String> steuerTypen = FXCollections.observableArrayList();
 
 	private FilteredList<Buchungsvorgang> filteredEinnahmeTypen = new FilteredList<>(einnahmeTypen);
 	private FilteredList<Buchungsvorgang> filteredAusgabeTypen = new FilteredList<>(ausgabeTypen);
+	private FilteredList<Buchung> filteredBuchungen = new FilteredList<>(buchungen);
 
+	private SortedList<Buchung> sortedBuchungen = new SortedList<Buchung>(filteredBuchungen);
+	
 	public void initialize() {
+		columnType.setCellFactory(new Callback<TableColumn<Buchung,Buchungsvorgang>, TableCell<Buchung,Buchungsvorgang>>() {
+			@Override
+			public TableCell<Buchung, Buchungsvorgang> call(TableColumn<Buchung, Buchungsvorgang> param) {
+				return new TableCell<Buchung, Buchungsvorgang>(){
+					@Override
+					protected void updateItem(Buchungsvorgang item, boolean empty) {
+						super.updateItem(item, empty);
+						if (item==null || empty) {
+							setText(null);
+						}else {
+							setText(item.getTyp().name());
+						}
+					}
+				};
+			}
+		});
+		columnType.setCellValueFactory(new PropertyValueFactory<Buchung, Buchungsvorgang>("vorgang"));
+		columnVorgang.setCellFactory(new Callback<TableColumn<Buchung,Buchungsvorgang>, TableCell<Buchung,Buchungsvorgang>>() {
+			@Override
+			public TableCell<Buchung, Buchungsvorgang> call(TableColumn<Buchung, Buchungsvorgang> param) {
+				return new TableCell<Buchung, Buchungsvorgang>(){
+					@Override
+					protected void updateItem(Buchungsvorgang item, boolean empty) {
+						super.updateItem(item, empty);
+						if (item==null || empty) {
+							setText(null);
+						}else {
+							setText(item.getName());
+						}
+					}
+				};
+			}
+		});
+		columnVorgang.setCellValueFactory(new PropertyValueFactory<Buchung, Buchungsvorgang>("vorgang"));
+		columnBeschreibungen.setCellValueFactory(new PropertyValueFactory<Buchung, String>("beschreibung"));
+		columnBetrag.setCellValueFactory(new PropertyValueFactory<Buchung, String>("betrag"));
+		columnDatum.setCellValueFactory(new PropertyValueFactory<Buchung, String>("datum"));
+		
 		steuerTypen.addAll(Arrays.asList("0", "7", "19"));
 		
 		einnahmeTypen.addAll(stammdatenService.getEinnahmenTypen());
 		ausgabeTypen.addAll(stammdatenService.getAusgabenTypen());
+		buchungen.addAll(stammdatenService.getBuchungen());
 		
-//		einnahmeTypen.addAll(Arrays.asList("Erlöse", "Lieferungen", "Erlöse §13b UStG", "Eigenverbrauch",
-//				"Umsatzssteuervorauszahlung", "Gewerbesteuer", "Zinseinahmen", "Verkauf/Entnahme Pkw",
-//				"Verkauf/Entnahme Anlagevermögen", "Versicherungentschädigung", "Sonstige Erlöse"));
-//		
-//		ausgabeTypen.addAll(Arrays.asList("Materialeinkauf", "Anschaffung Pkw", "Anschaffung sonstiges AV",
-//				"WG bis 800€", "Fremdarbeiten", "Bauleistungen §13b UStG", "Fremdarbeiten (Vertrieb)",
-//				"Betriebliche Versicherungen", "Beiträge, Gebühren, etc.", "Umsatzsteuervorauszahlungen",
-//				"Gewerbesteuer", "Einfuhrumsatzsteuer", "Gehälter", "Lohnsteuer", "Sozialversicherung",
-//				"Berufsgenossenschaft", "Vorsorgungskasse", "Miete", "Heizung", "Gas, Strom, Wasser", "Reinigung",
-//				"Instandhaltung", "Sonstige Raumkosten", "30 Cent Fahrkostenpauschale", "Kfz-Steuern",
-//				"Kfz-Versicherung", "Laufende Kfz Kosten", "Garagemiete", "Leasingkosten", "Fremdfahrzeuge",
-//				"Anschaffung Pkw", "Porto", "Telefonkosten", "Internetkosten", "Bürobedarf", "Fachliteratur",
-//				"Werbekosten", "Geschenke bis 35€", "Repräsentationsaufwendungen", "Bewirtungskosten",
-//				"Seminare, Weiterbildung", "Reisekosten", "Öffentliche Verkehrsmittel", "Rechts- und Beratungskosten",
-//				"Zinsaufwendungen", "Kontoführungsgebühren", "Wartungskosten Hard-/Software", "Sonstige Kosten"));
-
 		listViewEinnahmen.setItems(filteredEinnahmeTypen);
 		listViewEinnahmen.setCellFactory(new Callback<ListView<Buchungsvorgang>, ListCell<Buchungsvorgang>>() {
 			@Override
@@ -92,6 +123,33 @@ public class BuchungenController extends BaseBuchungenController {
 			}
 		});
 		comboEinnahmenSteuersatz.setItems(steuerTypen);
+		comboEinnahmenSteuersatz.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+			@Override
+			public ListCell<String> call(ListView<String> param) {
+				return new ListCell<String>() {
+					@Override
+					protected void updateItem(String item, boolean empty) {
+						super.updateItem(item, empty);
+						if (item==null || empty) {
+							setText(null);
+						}else {
+							setText(item +" %");
+						}
+					}
+				};
+			}
+		});
+		comboEinnahmenSteuersatz.setConverter(new StringConverter<String>() {
+			@Override
+			public String toString(String object) {
+				return object + " %";
+			}
+
+			@Override
+			public String fromString(String string) {
+				return string.replace(" %", "");
+			}
+		});
 		comboEinnahmenVorgang.setItems(einnahmeTypen);
 		comboEinnahmenVorgang.setCellFactory(new Callback<ListView<Buchungsvorgang>, ListCell<Buchungsvorgang>>() {
 			@Override
@@ -122,7 +180,9 @@ public class BuchungenController extends BaseBuchungenController {
 				vorgang.setName(name);
 				return vorgang;
 			}
-		});
+		}); 
+		sortedBuchungen.comparatorProperty().bind(tableViewBuchungen.comparatorProperty());
+		tableViewBuchungen.setItems(sortedBuchungen);
 		
 		comboEinnahmenVorgang.getSelectionModel().selectFirst();
 		comboEinnahmenSteuersatz.getSelectionModel().selectFirst();
@@ -163,12 +223,14 @@ public class BuchungenController extends BaseBuchungenController {
 		Object source = event.getSource();
 		if (source == buttonEinnahmenErstellen) {
 			Buchung buchung = new Buchung();
-			buchung.setBetrag(123);
-			buchung.setDatum(LocalDate.now());
+			buchung.setBetrag(Double.parseDouble(textEinnahmenBetrag.getText()));
+			buchung.setDatum(datepickerEinnahmenDatum.getValue());
 			buchung.setErstelltAm(LocalDateTime.now());
 			buchung.setVorgang(comboEinnahmenVorgang.getSelectionModel().getSelectedItem());
 			HttpEntity<Buchung> request = new HttpEntity<>(buchung);
 			restTemplate.postForObject("http://localhost:2001/createBuchung", request, Buchung.class);
+			
+			buchungen.add(buchung);
 			
 			textEinnahmenBetrag.setText("");
 			textEinnahmenBeschreibung.setText("");

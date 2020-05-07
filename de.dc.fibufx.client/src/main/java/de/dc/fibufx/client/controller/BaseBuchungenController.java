@@ -1,5 +1,7 @@
 package de.dc.fibufx.client.controller;
 
+import de.dc.fibufx.client.model.Buchung;
+import de.dc.fibufx.client.model.Buchungstype;
 import de.dc.fibufx.client.model.Buchungsvorgang;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -52,25 +54,25 @@ public abstract class BaseBuchungenController {
     protected TextField textSearchBuchungen;
 
     @FXML
-    protected TableView<?> tableViewBuchungen;
+    protected TableView<Buchung> tableViewBuchungen;
 
     @FXML
-    protected TableColumn<?, ?> columnType;
+    protected TableColumn<Buchung, Buchungsvorgang> columnType;
 
     @FXML
-    protected TableColumn<?, ?> columnVorgang;
+    protected TableColumn<Buchung, Buchungsvorgang> columnVorgang;
 
     @FXML
-    protected TableColumn<?, ?> columnDatum;
+    protected TableColumn<Buchung, String> columnDatum;
 
     @FXML
-    protected TableColumn<?, ?> columnBetrag;
+    protected TableColumn<Buchung, String> columnBetrag;
 
     @FXML
-    protected TableColumn<?, ?> columnSteuersatz;
+    protected TableColumn<Buchung, String> columnSteuersatz;
 
     @FXML
-    protected TableColumn<?, ?> columnBeschreibungen;
+    protected TableColumn<Buchung, String> columnBeschreibungen;
 
 	@FXML
 	protected abstract void onButtonAction(ActionEvent event);

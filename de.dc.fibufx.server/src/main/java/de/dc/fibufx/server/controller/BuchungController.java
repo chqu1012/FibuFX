@@ -1,8 +1,11 @@
 package de.dc.fibufx.server.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +18,11 @@ import de.dc.fibufx.server.repository.BuchungRepository;
 public class BuchungController {
 
 	@Autowired BuchungRepository buchungRepository;
+	
+	@GetMapping("/buchungen")
+	public List<Buchung> buchungsvorgang() {
+		return buchungRepository.findAll();
+	}
 	
 	@PostMapping(value = "/createBuchung", consumes = "application/json", produces = "application/json")
 	public Buchung create(@RequestBody Buchung buchung) {

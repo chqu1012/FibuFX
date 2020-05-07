@@ -2,6 +2,7 @@ package de.dc.fibufx.client.service;
 
 import org.springframework.stereotype.Service;
 
+import de.dc.fibufx.client.model.Buchung;
 import de.dc.fibufx.client.model.Buchungsvorgang;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,6 +12,11 @@ public class StammdatenService {
 
 	private ObservableList<Buchungsvorgang> einnahmenTypen = FXCollections.observableArrayList();
 	private ObservableList<Buchungsvorgang> ausgabenTypen = FXCollections.observableArrayList();
+	private ObservableList<Buchung> buchungen = FXCollections.observableArrayList();
+
+	public ObservableList<Buchung> getBuchungen(){
+		return buchungen;
+	}
 	
 	public void addEinnahmenTyp(Buchungsvorgang vorgang) {
 		einnahmenTypen.add(vorgang);
