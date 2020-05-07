@@ -169,6 +169,9 @@ public class BuchungenController extends BaseBuchungenController {
 			buchung.setVorgang(comboEinnahmenVorgang.getSelectionModel().getSelectedItem());
 			HttpEntity<Buchung> request = new HttpEntity<>(buchung);
 			restTemplate.postForObject("http://localhost:2001/createBuchung", request, Buchung.class);
+			
+			textEinnahmenBetrag.setText("");
+			textEinnahmenBeschreibung.setText("");
 		}
 	}
 }
