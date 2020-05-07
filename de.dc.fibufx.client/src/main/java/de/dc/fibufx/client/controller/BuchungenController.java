@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.client.RestTemplate;
 
 import de.dc.fibufx.client.model.Buchung;
+import de.dc.fibufx.client.model.Buchungstype;
 import de.dc.fibufx.client.model.Buchungsvorgang;
 import de.dc.fibufx.client.service.StammdatenService;
 import javafx.beans.value.ObservableValue;
@@ -23,6 +24,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 
@@ -53,8 +56,14 @@ public class BuchungenController extends BaseBuchungenController {
 						super.updateItem(item, empty);
 						if (item==null || empty) {
 							setText(null);
+							setGraphic(null);
 						}else {
-							setText(item.getTyp().name());
+							String path = "/de/dc/fibufx/client/images/";
+							Image image = item.getTyp()==Buchungstype.EINNAHME? new Image(path+"icons8-einnahme.png") : new Image(path +"icons8-ausgabe.png");
+							ImageView iv = new ImageView(image);
+							iv.setFitHeight(16);
+							iv.setFitWidth(16);
+							setGraphic(iv);
 						}
 					}
 				};

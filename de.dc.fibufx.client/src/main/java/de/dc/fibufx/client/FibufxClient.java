@@ -75,24 +75,28 @@ public class FibufxClient extends Application{
 	@Bean
 	public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
 		return args -> {
-			System.out.println("** BENUTZER *******************************************************************************");
-			Benutzer[] benutzer = restTemplate.getForObject(
-					"http://localhost:2001/kunden", Benutzer[].class);
-			for (Benutzer b : benutzer) {
-				System.out.println(b);
-			}
-			System.out.println("** VORGANG  *******************************************************************************");
-			Buchungsvorgang[] vorgangsListe = restTemplate.getForObject("http://localhost:2001/data/buchungsvorgang", Buchungsvorgang[].class);
-			for (Buchungsvorgang vorgang : vorgangsListe) {
-				if (vorgang.getTyp()==Buchungstype.EINNAHME) {
-					stammdatenService.addEinnahmenTyp(vorgang);
-				}else {
-					stammdatenService.addAusgabenTyp(vorgang);
+			try {
+				System.out.println("** BENUTZER *******************************************************************************");
+				Benutzer[] benutzer = restTemplate.getForObject(
+						"http://localhost:2001/kunden", Benutzer[].class);
+				for (Benutzer b : benutzer) {
+					System.out.println(b);
 				}
+				System.out.println("** VORGANG  *******************************************************************************");
+				Buchungsvorgang[] vorgangsListe = restTemplate.getForObject("http://localhost:2001/data/buchungsvorgang", Buchungsvorgang[].class);
+				for (Buchungsvorgang vorgang : vorgangsListe) {
+					if (vorgang.getTyp()==Buchungstype.EINNAHME) {
+						stammdatenService.addEinnahmenTyp(vorgang);
+					}else {
+						stammdatenService.addAusgabenTyp(vorgang);
+					}
+				}
+				
+				Buchung[] buchungen = restTemplate.getForObject("http://localhost:2001/buchungen", Buchung[].class);
+				stammdatenService.getBuchungen().addAll(buchungen);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-			
-			Buchung[] buchungen = restTemplate.getForObject("http://localhost:2001/buchungen", Buchung[].class);
-			stammdatenService.getBuchungen().addAll(buchungen);
 		};
 	}
 }
