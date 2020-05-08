@@ -79,6 +79,7 @@ public class BuchungenController extends BaseBuchungenController {
 		listViewEinnahmen.getSelectionModel().selectedItemProperty().addListener(this::selectEinnahmen);
 		textSearchEinnahmen.textProperty().addListener(this::filterEinnahmen);
 		textSearchAusgaben.textProperty().addListener(this::filterAusgaben);
+		textSearchBuchungen.textProperty().addListener(this::filterBuchungen);
 		
 		datepickerEinnahmenDatum.setValue(LocalDate.now());
 	}
@@ -86,6 +87,22 @@ public class BuchungenController extends BaseBuchungenController {
 	private void selectEinnahmen(ObservableValue<? extends Buchungsvorgang> observable, Buchungsvorgang oldValue, Buchungsvorgang newValue) {
 		if (newValue!=null) {
 			comboEinnahmenVorgang.setValue(newValue);
+		}
+	}
+
+	private void filterBuchungen(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+		if (newValue!=null) {
+			filteredBuchungen.setPredicate(p->{
+				Buchungsvorgang vorgang = p.getVorgang();
+				String beschreibung = p.getBeschreibung();
+				boolean containsBeschreibung = false;
+				String value = newValue.toLowerCase();
+				if (beschreibung!=null) {
+					containsBeschreibung = beschreibung.toLowerCase().contains(value);
+				}
+				boolean containsDatum = p.getDatum().toString().contains(newValue);
+				return p==null || vorgang.getName().toLowerCase().contains(value) || containsBeschreibung || containsDatum;
+			});
 		}
 	}
 

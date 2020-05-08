@@ -30,7 +30,7 @@
                      <content>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <TextField fx:id="textSearchEinnahmen" />
+                              <TextField fx:id="textSearchEinnahmen" styleClass="search-text-field" />
                               <ListView fx:id="listViewEinnahmen" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                            </children>
                         </VBox>
@@ -43,7 +43,7 @@
                      <content>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <TextField fx:id="textSearchAusgaben" />
+                              <TextField fx:id="textSearchAusgaben" styleClass="search-text-field" />
                               <ListView fx:id="listViewAusgaben" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                            </children>
                         </VBox>
