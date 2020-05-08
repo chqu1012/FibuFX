@@ -10,7 +10,6 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -21,7 +20,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="600.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8.0.241" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dc.fibufx.client.controller.BuchungenController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="600.0" minWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.241" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dc.fibufx.client.controller.BuchungenController">
    <center>
       <SplitPane dividerPositions="0.2612687813021703" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity">
          <items>
@@ -55,45 +54,44 @@
                   </TitledPane>
               </items>
             </SplitPane>
-            <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+            <SplitPane dividerPositions="0.20892857142857144" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
                <items>
-                  <TitledPane animated="false" collapsible="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Neue Buchung" SplitPane.resizableWithParent="false">
+                  <TitledPane animated="false" collapsible="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="699.0" text="Neue Buchung" SplitPane.resizableWithParent="false">
                      <font>
                         <Font size="16.0" />
                      </font>
                      <content>
                         <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                            <children>
-                              <GridPane fx:id="paneEinnahmen" hgap="5.0" vgap="5.0">
+                              <GridPane fx:id="paneEinnahmen" hgap="5.0" vgap="5.0" StackPane.alignment="TOP_LEFT">
                                 <columnConstraints>
                                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="184.0" minWidth="10.0" prefWidth="161.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="216.0" minWidth="10.0" prefWidth="133.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="237.0" minWidth="10.0" prefWidth="121.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="237.0" minWidth="10.0" prefWidth="162.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" />
+                                    <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="100.0" />
                                 </columnConstraints>
                                 <rowConstraints>
                                   <RowConstraints maxHeight="-Infinity" vgrow="SOMETIMES" />
-                                  <RowConstraints maxHeight="-Infinity" vgrow="SOMETIMES" />
-                                    <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
-                                    <RowConstraints maxHeight="25.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                                  <RowConstraints fillHeight="false" maxHeight="-Infinity" minHeight="10.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
                                     <Label text="Vorgang" />
                                     <ComboBox fx:id="comboEinnahmenVorgang" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.rowIndex="1" />
                                     <Label text="Betrag" GridPane.columnIndex="1" />
-                                    <TextField fx:id="textEinnahmenBetrag" maxWidth="1.7976931348623157E308" prefHeight="29.0" prefWidth="143.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <ComboBox fx:id="comboEinnahmenSteuersatz" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                    <TextField fx:id="textEinnahmenBetrag" maxWidth="-Infinity" prefHeight="29.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <ComboBox fx:id="comboEinnahmenSteuersatz" maxWidth="-Infinity" prefWidth="80.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                                     <Label text="Steuersatz" GridPane.columnIndex="2" />
                                     <Label text="Datum" GridPane.columnIndex="3" />
-                                    <DatePicker fx:id="datepickerEinnahmenDatum" maxWidth="1.7976931348623157E308" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                                    <Label text="Beschreibung" GridPane.rowIndex="2" />
-                                    <TextArea fx:id="textEinnahmenBeschreibung" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="65.0" prefWidth="524.0" GridPane.columnSpan="4" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS" />
-                                    <Button fx:id="buttonEinnahmenErstellen" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onButtonAction" text="Erstellen" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                                    <DatePicker fx:id="datepickerEinnahmenDatum" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                    <Label text="Beschreibung" GridPane.columnIndex="4" />
+                                    <Button fx:id="buttonEinnahmenErstellen" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onButtonAction" text="Erstellen" GridPane.columnIndex="5" GridPane.rowIndex="1">
                                        <GridPane.margin>
-                                          <Insets top="10.0" />
+                                          <Insets />
                                        </GridPane.margin>
                                     </Button>
+                                    <TextField fx:id="textEinnahmenBeschreibung" maxWidth="1.7976931348623157E308" GridPane.columnIndex="4" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
                                  </children>
                               </GridPane>
                            </children>

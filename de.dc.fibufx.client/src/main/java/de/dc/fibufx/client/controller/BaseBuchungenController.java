@@ -45,7 +45,7 @@ public abstract class BaseBuchungenController {
 	protected DatePicker datepickerEinnahmenDatum;
 
 	@FXML
-	protected TextArea textEinnahmenBeschreibung;
+	protected TextField textEinnahmenBeschreibung;
 
 	@FXML
 	protected Button buttonEinnahmenErstellen;
