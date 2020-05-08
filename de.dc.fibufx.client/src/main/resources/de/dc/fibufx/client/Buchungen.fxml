@@ -4,9 +4,11 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -31,7 +33,14 @@
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
                               <TextField fx:id="textSearchEinnahmen" styleClass="search-text-field" />
-                              <ListView fx:id="listViewEinnahmen" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                              <ListView fx:id="listViewEinnahmen" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                 <contextMenu>
+                                    <ContextMenu>
+                                      <items>
+                                        <MenuItem fx:id="menuItemNeueEinnahme" mnemonicParsing="false" onAction="#onButtonAction" text="Neu Einnahmen" />
+                                      </items>
+                                    </ContextMenu>
+                                 </contextMenu></ListView>
                            </children>
                         </VBox>
                      </content>
@@ -44,7 +53,14 @@
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
                               <TextField fx:id="textSearchAusgaben" styleClass="search-text-field" />
-                              <ListView fx:id="listViewAusgaben" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                              <ListView fx:id="listViewAusgaben" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                 <contextMenu>
+                                    <ContextMenu>
+                                      <items>
+                                        <MenuItem fx:id="menuItemNeueAusgabe" mnemonicParsing="false" onAction="#onButtonAction" text="Neue Ausgabe" />
+                                      </items>
+                                    </ContextMenu>
+                                 </contextMenu></ListView>
                            </children>
                         </VBox>
                      </content>
@@ -115,6 +131,13 @@
                                     <TableColumn fx:id="columnSteuersatz" prefWidth="123.0" text="Steuersatz" />
                                     <TableColumn fx:id="columnBeschreibungen" prefWidth="123.0" text="Beschreibung" />
                                 </columns>
+                                 <contextMenu>
+                                    <ContextMenu>
+                                      <items>
+                                        <MenuItem fx:id="menuItemBuchungLoeschen" mnemonicParsing="false" onAction="#onButtonAction" text="Löschen" />
+                                      </items>
+                                    </ContextMenu>
+                                 </contextMenu>
                               </TableView>
                            </children>
                         </VBox>

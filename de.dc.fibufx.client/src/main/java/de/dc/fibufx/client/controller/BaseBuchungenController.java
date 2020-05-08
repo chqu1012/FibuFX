@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -17,6 +18,15 @@ import javafx.scene.layout.GridPane;
 
 public abstract class BaseBuchungenController {
 
+	@FXML
+	protected MenuItem menuItemBuchungLoeschen;
+
+	@FXML
+	protected MenuItem menuItemNeueEinnahme;
+	
+	@FXML
+	protected MenuItem menuItemNeueAusgabe;
+	
 	@FXML
 	protected TextField textSearchEinnahmen;
 

@@ -12,16 +12,24 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import de.dc.fibufx.server.model.Buchung;
+import de.dc.fibufx.server.model.Buchungsvorgang;
 import de.dc.fibufx.server.repository.BuchungRepository;
+import de.dc.fibufx.server.repository.BuchungsvorgangRepository;
 
 @RestController
 public class BuchungController {
 
 	@Autowired BuchungRepository buchungRepository;
+	@Autowired BuchungsvorgangRepository vorgangRepository;
 	
 	@GetMapping("/buchungen")
 	public List<Buchung> buchungsvorgang() {
 		return buchungRepository.findAll();
+	}
+	
+	@PostMapping(value = "/createBuchungsvorgang", consumes = "application/json", produces = "application/json")
+	public Buchungsvorgang create(@RequestBody Buchungsvorgang buchung) {
+		return vorgangRepository.save(buchung);
 	}
 	
 	@PostMapping(value = "/createBuchung", consumes = "application/json", produces = "application/json")

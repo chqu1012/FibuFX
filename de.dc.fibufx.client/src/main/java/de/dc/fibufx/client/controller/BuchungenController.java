@@ -16,6 +16,7 @@ import de.dc.fibufx.client.controller.cell.SteuersatzListCell;
 import de.dc.fibufx.client.controller.converter.BuchungsvorgangComboConvertor;
 import de.dc.fibufx.client.controller.converter.SteuersatzComboConvertor;
 import de.dc.fibufx.client.model.Buchung;
+import de.dc.fibufx.client.model.Buchungstype;
 import de.dc.fibufx.client.model.Buchungsvorgang;
 import de.dc.fibufx.client.service.StammdatenService;
 import javafx.beans.value.ObservableValue;
@@ -24,6 +25,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 @Controller
@@ -77,6 +79,7 @@ public class BuchungenController extends BaseBuchungenController {
 		buttonEinnahmenErstellen.disableProperty().bind(textEinnahmenBetrag.textProperty().isEmpty());
 		
 		listViewEinnahmen.getSelectionModel().selectedItemProperty().addListener(this::selectEinnahmen);
+		listViewAusgaben.getSelectionModel().selectedItemProperty().addListener(this::selectAusgaben);
 		textSearchEinnahmen.textProperty().addListener(this::filterEinnahmen);
 		textSearchAusgaben.textProperty().addListener(this::filterAusgaben);
 		textSearchBuchungen.textProperty().addListener(this::filterBuchungen);
@@ -84,8 +87,16 @@ public class BuchungenController extends BaseBuchungenController {
 		datepickerEinnahmenDatum.setValue(LocalDate.now());
 	}
 	
+	private void selectAusgaben(ObservableValue<? extends Buchungsvorgang> observable, Buchungsvorgang oldValue, Buchungsvorgang newValue) {
+		if (newValue!=null) {
+			comboEinnahmenVorgang.setItems(ausgabeTypen);
+			comboEinnahmenVorgang.setValue(newValue);
+		}
+	}
+
 	private void selectEinnahmen(ObservableValue<? extends Buchungsvorgang> observable, Buchungsvorgang oldValue, Buchungsvorgang newValue) {
 		if (newValue!=null) {
+			comboEinnahmenVorgang.setItems(einnahmeTypen);
 			comboEinnahmenVorgang.setValue(newValue);
 		}
 	}
@@ -132,12 +143,43 @@ public class BuchungenController extends BaseBuchungenController {
 			buchung.setErstelltAm(LocalDateTime.now());
 			buchung.setVorgang(comboEinnahmenVorgang.getSelectionModel().getSelectedItem());
 			HttpEntity<Buchung> request = new HttpEntity<>(buchung);
-			restTemplate.postForObject("http://localhost:2001/createBuchung", request, Buchung.class);
+			buchung = restTemplate.postForObject("http://localhost:2001/createBuchung", request, Buchung.class);
 			
 			buchungen.add(buchung);
 			
 			textEinnahmenBetrag.setText("");
 			textEinnahmenBeschreibung.setText("");
+		}else if (source == menuItemBuchungLoeschen) {
+			ObservableList<Buchung> selections = tableViewBuchungen.getSelectionModel().getSelectedItems();
+			buchungen.removeAll(selections);
+		}else if (source == menuItemNeueAusgabe) {
+			TextInputDialog dialog = new TextInputDialog();
+			dialog.setTitle("Neue Ausgabevorlage");
+			dialog.setHeaderText("Name für Ausgabevorlage");
+			dialog.setContentText("Geben Sie einen Namen für die Ausgabe ein");
+			dialog.showAndWait().ifPresent(name -> {
+				Buchungsvorgang vorgang = new Buchungsvorgang();
+				vorgang.setName(name);
+				vorgang.setErstelltAm(LocalDateTime.now());
+				vorgang.setTyp(Buchungstype.AUSGABE);
+				HttpEntity<Buchungsvorgang> request = new HttpEntity<>(vorgang);
+				vorgang = restTemplate.postForObject("http://localhost:2001/createBuchungsvorgang", request, Buchungsvorgang.class);
+				ausgabeTypen.add(vorgang);
+			});
+		}else if (source == menuItemNeueEinnahme) {
+			TextInputDialog dialog = new TextInputDialog();
+			dialog.setTitle("Neue Einnahmevorlage");
+			dialog.setHeaderText("Name für Einnahmevorlage");
+			dialog.setContentText("Geben Sie einen Namen für die Ausgabe ein");
+			dialog.showAndWait().ifPresent(name -> {
+				Buchungsvorgang vorgang = new Buchungsvorgang();
+				vorgang.setName(name);
+				vorgang.setErstelltAm(LocalDateTime.now());
+				vorgang.setTyp(Buchungstype.EINNAHME);
+				HttpEntity<Buchungsvorgang> request = new HttpEntity<>(vorgang);
+				vorgang = restTemplate.postForObject("http://localhost:2001/createBuchungsvorgang", request, Buchungsvorgang.class);
+				einnahmeTypen.add(vorgang);
+			});
 		}
 	}
 }
