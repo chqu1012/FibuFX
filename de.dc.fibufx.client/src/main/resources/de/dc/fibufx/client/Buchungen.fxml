@@ -21,7 +21,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="600.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8.0.241" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dc.fibufx.client.controller.BuchungenController">
    <center>
       <SplitPane dividerPositions="0.2612687813021703" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity">
@@ -106,12 +105,12 @@
                         <Font size="16.0" />
                      </font>
                      <content>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
+                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0">
                            <children>
-                              <TextField fx:id="textSearchBuchungen" />
+                              <TextField fx:id="textSearchBuchungen" promptText="Suche für Buchungen" styleClass="search-text-field" />
                               <TableView fx:id="tableViewBuchungen" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                 <columns>
-                                  <TableColumn fx:id="columnType" prefWidth="24.0" text="" />
+                                  <TableColumn fx:id="columnType" prefWidth="20.0" />
                                   <TableColumn fx:id="columnVorgang" prefWidth="153.0" text="Vorgang" />
                                     <TableColumn fx:id="columnDatum" prefWidth="123.0" text="Datum" />
                                     <TableColumn fx:id="columnBetrag" prefWidth="123.0" text="Betrag" />
@@ -130,6 +129,8 @@
             <URL value="@css/Buchungen.css" />
             <URL value="@css/SplitPane.css" />
             <URL value="@css/TitledPane.css" />
+            <URL value="@css/TableView.css" />
+            <URL value="@css/SearchText.css" />
          </stylesheets>
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

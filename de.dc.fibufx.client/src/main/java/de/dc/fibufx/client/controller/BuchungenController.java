@@ -9,8 +9,13 @@ import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.client.RestTemplate;
 
+import de.dc.fibufx.client.controller.cell.BuchungTypeTableCell;
+import de.dc.fibufx.client.controller.cell.BuchungVorgangTableCell;
+import de.dc.fibufx.client.controller.cell.BuchungsvorgangListCell;
+import de.dc.fibufx.client.controller.cell.SteuersatzListCell;
+import de.dc.fibufx.client.controller.converter.BuchungsvorgangComboConvertor;
+import de.dc.fibufx.client.controller.converter.SteuersatzComboConvertor;
 import de.dc.fibufx.client.model.Buchung;
-import de.dc.fibufx.client.model.Buchungstype;
 import de.dc.fibufx.client.model.Buchungsvorgang;
 import de.dc.fibufx.client.service.StammdatenService;
 import javafx.beans.value.ObservableValue;
@@ -19,15 +24,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.util.Callback;
-import javafx.util.StringConverter;
 
 @Controller
 public class BuchungenController extends BaseBuchungenController {
@@ -47,45 +44,9 @@ public class BuchungenController extends BaseBuchungenController {
 	private SortedList<Buchung> sortedBuchungen = new SortedList<Buchung>(filteredBuchungen);
 	
 	public void initialize() {
-		columnType.setCellFactory(new Callback<TableColumn<Buchung,Buchungsvorgang>, TableCell<Buchung,Buchungsvorgang>>() {
-			@Override
-			public TableCell<Buchung, Buchungsvorgang> call(TableColumn<Buchung, Buchungsvorgang> param) {
-				return new TableCell<Buchung, Buchungsvorgang>(){
-					@Override
-					protected void updateItem(Buchungsvorgang item, boolean empty) {
-						super.updateItem(item, empty);
-						if (item==null || empty) {
-							setText(null);
-							setGraphic(null);
-						}else {
-							String path = "/de/dc/fibufx/client/images/";
-							Image image = item.getTyp()==Buchungstype.EINNAHME? new Image(path+"icons8-einnahme.png") : new Image(path +"icons8-ausgabe.png");
-							ImageView iv = new ImageView(image);
-							iv.setFitHeight(16);
-							iv.setFitWidth(16);
-							setGraphic(iv);
-						}
-					}
-				};
-			}
-		});
+		columnType.setCellFactory(e-> new BuchungTypeTableCell());
 		columnType.setCellValueFactory(new PropertyValueFactory<Buchung, Buchungsvorgang>("vorgang"));
-		columnVorgang.setCellFactory(new Callback<TableColumn<Buchung,Buchungsvorgang>, TableCell<Buchung,Buchungsvorgang>>() {
-			@Override
-			public TableCell<Buchung, Buchungsvorgang> call(TableColumn<Buchung, Buchungsvorgang> param) {
-				return new TableCell<Buchung, Buchungsvorgang>(){
-					@Override
-					protected void updateItem(Buchungsvorgang item, boolean empty) {
-						super.updateItem(item, empty);
-						if (item==null || empty) {
-							setText(null);
-						}else {
-							setText(item.getName());
-						}
-					}
-				};
-			}
-		});
+		columnVorgang.setCellFactory(e -> new BuchungVorgangTableCell());
 		columnVorgang.setCellValueFactory(new PropertyValueFactory<Buchung, Buchungsvorgang>("vorgang"));
 		columnBeschreibungen.setCellValueFactory(new PropertyValueFactory<Buchung, String>("beschreibung"));
 		columnBetrag.setCellValueFactory(new PropertyValueFactory<Buchung, String>("betrag"));
@@ -98,98 +59,15 @@ public class BuchungenController extends BaseBuchungenController {
 		buchungen.addAll(stammdatenService.getBuchungen());
 		
 		listViewEinnahmen.setItems(filteredEinnahmeTypen);
-		listViewEinnahmen.setCellFactory(new Callback<ListView<Buchungsvorgang>, ListCell<Buchungsvorgang>>() {
-			@Override
-			public ListCell<Buchungsvorgang> call(ListView<Buchungsvorgang> param) {
-				return new ListCell<Buchungsvorgang>() {
-					@Override
-					protected void updateItem(Buchungsvorgang item, boolean empty) {
-						super.updateItem(item, empty);
-						if (item == null || empty) {
-							setText(null);
-						}else {
-							setText(item.getName());
-						}
-					}
-				};
-			}
-		});
+		listViewEinnahmen.setCellFactory(e->new BuchungsvorgangListCell());
 		listViewAusgaben.setItems(filteredAusgabeTypen);
-		listViewAusgaben.setCellFactory(new Callback<ListView<Buchungsvorgang>, ListCell<Buchungsvorgang>>() {
-			@Override
-			public ListCell<Buchungsvorgang> call(ListView<Buchungsvorgang> param) {
-				return new ListCell<Buchungsvorgang>() {
-					@Override
-					protected void updateItem(Buchungsvorgang item, boolean empty) {
-						super.updateItem(item, empty);
-						if (item == null || empty) {
-							setText(null);
-						}else {
-							setText(item.getName());
-						}
-					}
-				};
-			}
-		});
+		listViewAusgaben.setCellFactory(e -> new BuchungsvorgangListCell());
 		comboEinnahmenSteuersatz.setItems(steuerTypen);
-		comboEinnahmenSteuersatz.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
-			@Override
-			public ListCell<String> call(ListView<String> param) {
-				return new ListCell<String>() {
-					@Override
-					protected void updateItem(String item, boolean empty) {
-						super.updateItem(item, empty);
-						if (item==null || empty) {
-							setText(null);
-						}else {
-							setText(item +" %");
-						}
-					}
-				};
-			}
-		});
-		comboEinnahmenSteuersatz.setConverter(new StringConverter<String>() {
-			@Override
-			public String toString(String object) {
-				return object + " %";
-			}
-
-			@Override
-			public String fromString(String string) {
-				return string.replace(" %", "");
-			}
-		});
+		comboEinnahmenSteuersatz.setCellFactory(e-> new SteuersatzListCell());
+		comboEinnahmenSteuersatz.setConverter(new SteuersatzComboConvertor());
 		comboEinnahmenVorgang.setItems(einnahmeTypen);
-		comboEinnahmenVorgang.setCellFactory(new Callback<ListView<Buchungsvorgang>, ListCell<Buchungsvorgang>>() {
-			@Override
-			public ListCell<Buchungsvorgang> call(ListView<Buchungsvorgang> param) {
-				return new ListCell<Buchungsvorgang>() {
-					@Override
-					protected void updateItem(Buchungsvorgang item, boolean empty) {
-						super.updateItem(item, empty);
-						if (item == null || empty) {
-							setText(null);
-						}else {
-							setText(item.getName());
-						}
-					}
-				};
-			}
-		});
-		comboEinnahmenVorgang.setConverter(new StringConverter<Buchungsvorgang>() {
-			@Override
-			public String toString(Buchungsvorgang object) {
-				return object.getName();
-			}
-			
-			@Override
-			public Buchungsvorgang fromString(String name) {
-				name = name == null || name.isEmpty() ? "" : name;
-				Buchungsvorgang vorgang = new Buchungsvorgang();
-				vorgang.setName(name);
-				return vorgang;
-			}
-		}); 
+		comboEinnahmenVorgang.setCellFactory(e-> new BuchungsvorgangListCell());
+		comboEinnahmenVorgang.setConverter(new BuchungsvorgangComboConvertor()); 
 		sortedBuchungen.comparatorProperty().bind(tableViewBuchungen.comparatorProperty());
 		tableViewBuchungen.setItems(sortedBuchungen);
 		

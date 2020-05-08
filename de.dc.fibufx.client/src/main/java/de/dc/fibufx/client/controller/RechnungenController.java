@@ -15,7 +15,6 @@ public class RechnungenController extends BaseRechnungenController {
 	@Override
 	protected void onMouseClicked(MouseEvent event) {
 		Object source = event.getSource();
-		System.out.println(source);
 		if (source instanceof Label) {
 			Label label = (Label) source;
 			mainController.getPage(label);
