@@ -1,0 +1,10 @@
+.list-view {
+	-fx-focus-color: transparent;
+	-fx-faint-focus-color: transparent;
+    -fx-selection-bar: transparent ;
+    -fx-selection-bar-non-focused: transparent ;
+}
+
+.list-label{
+	-fx-text-fill: gray;
+}
