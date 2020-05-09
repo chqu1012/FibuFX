@@ -1,6 +1,7 @@
 package de.dc.fibufx.client.controller.cell;
 import java.io.IOException;
 
+import de.dc.fibufx.client.model.Konto;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -19,7 +20,7 @@ public class KontoCell extends HBox{
     @FXML
     protected Label labelName;
 
-    public KontoCell() {
+    public KontoCell(Konto konto) {
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("/de/dc/fibufx/client/cell/KontoCell.fxml"));
     	loader.setRoot(this);
     	loader.setController(this);
@@ -28,6 +29,8 @@ public class KontoCell extends HBox{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+    	
+    	labelName.setText(konto.getBezeichnung());
 	}
     
     @FXML
