@@ -8,3 +8,7 @@
 .list-label{
 	-fx-text-fill: gray;
 }
+
+.list-label-value{
+	-fx-text-fill: #00537D;
+}

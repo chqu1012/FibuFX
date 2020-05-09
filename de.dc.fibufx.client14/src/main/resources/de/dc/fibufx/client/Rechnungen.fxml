@@ -6,17 +6,18 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.241" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dc.fibufx.client.controller.RechnungenController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.241" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dc.fibufx.client.controller.RechnungenController">
    <center>
-      <VBox maxHeight="1.7976931348623157E308" maxWidth="1000.0" minHeight="-Infinity" minWidth="1000.0" prefWidth="1000.0" spacing="20.0">
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1400.0" minHeight="-Infinity" minWidth="1000.0" prefWidth="1000.0" spacing="20.0">
          <children>
-            <HBox alignment="CENTER_RIGHT" prefHeight="38.0" prefWidth="600.0" spacing="10.0">
+            <HBox alignment="CENTER_RIGHT" maxWidth="1400.0" prefHeight="38.0" prefWidth="600.0" spacing="10.0">
                <children>
                   <Label text="Aktueller Buchungszeitraum:" />
                   <Label fx:id="labelDate" text="Januar 2020">
@@ -29,11 +30,11 @@
                   </Label>
                </children>
             </HBox>
-            <GridPane prefHeight="119.0" prefWidth="960.0" style="-fx-background-color: white;">
+            <GridPane maxWidth="1400.0" prefHeight="119.0" prefWidth="960.0" style="-fx-background-color: white;">
               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="495.0" minWidth="10.0" prefWidth="35.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="495.0" minWidth="10.0" prefWidth="58.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="495.0" minWidth="10.0" prefWidth="106.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="35.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="10.0" prefWidth="50.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="98.0" minWidth="10.0" prefWidth="98.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="868.0" minWidth="10.0" prefWidth="573.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="868.0" minWidth="10.0" prefWidth="196.0" />
               </columnConstraints>
@@ -132,11 +133,11 @@
                   <DropShadow blurType="TWO_PASS_BOX" height="7.0" radius="3.0" width="7.0" />
                </effect>
             </GridPane>
-            <GridPane prefHeight="119.0" prefWidth="960.0" style="-fx-background-color: white;">
+            <GridPane maxWidth="1400.0" prefHeight="119.0" prefWidth="960.0" style="-fx-background-color: white;">
                <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="495.0" minWidth="0.0" prefWidth="25.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="565.0" minWidth="8.0" prefWidth="57.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="679.0" minWidth="0.0" prefWidth="96.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="0.0" prefWidth="25.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="8.0" prefWidth="57.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="98.0" minWidth="0.0" prefWidth="96.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="868.0" minWidth="10.0" prefWidth="242.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="868.0" minWidth="10.0" prefWidth="220.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="868.0" minWidth="10.0" prefWidth="303.0" />
@@ -145,7 +146,6 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
                   <Label alignment="CENTER" maxHeight="1.7976931348623157E308" prefHeight="64.0" prefWidth="28.0" style="-fx-background-color: #00537D;" text="2" textFill="WHITE" GridPane.rowSpan="4">
@@ -165,7 +165,7 @@
                   </Label>
                   <HBox fx:id="buttonPrivatKonto" onMouseClicked="#onMouseClicked" prefHeight="56.0" prefWidth="195.0" style="-fx-background-color: #E2EBF0; -fx-background-radius: 4;" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.rowSpan="2">
                      <GridPane.margin>
-                        <Insets right="15.0" />
+                        <Insets bottom="10.0" right="15.0" />
                      </GridPane.margin>
                      <children>
                         <Label accessibleHelp="Buchungen.fxml" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#onMouseClicked" prefHeight="70.0" prefWidth="152.0" text="Privat Konto" HBox.hgrow="ALWAYS" />
@@ -185,19 +185,47 @@
                            </font>
                         </Label>
                      </children>
+                     <GridPane.margin>
+                        <Insets bottom="10.0" />
+                     </GridPane.margin>
                   </HBox>
                </children>
                <effect>
                   <DropShadow blurType="TWO_PASS_BOX" height="7.0" radius="3.0" width="7.0" />
                </effect>
             </GridPane>
-            <HBox spacing="20.0">
+            <HBox maxHeight="1.7976931348623157E308" maxWidth="1400.0" minHeight="100.0" minWidth="-Infinity" style="-fx-background-color: white;">
+               <children>
+                  <Label alignment="CENTER" maxHeight="1.7976931348623157E308" prefHeight="64.0" prefWidth="28.0" style="-fx-background-color: #00537D;" text="3" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label maxHeight="1.7976931348623157E308" prefHeight="64.0" prefWidth="150.0" text="Bestehende Konten" textFill="#00537d" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                     <padding>
+                        <Insets left="60.0" />
+                     </padding>
+                  </Label>
+                  <FlowPane fx:id="paneBestehendeKonten" hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" vgap="10.0" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </FlowPane>
+               </children>
+               <effect>
+                  <DropShadow blurType="TWO_PASS_BOX" height="9.14" radius="3.3275" width="6.17" />
+               </effect>
+            </HBox>
+            <HBox maxWidth="1400.0" spacing="20.0">
                <children>
                   <GridPane prefHeight="119.0" prefWidth="960.0" style="-fx-background-color: white;">
                      <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="495.0" minWidth="0.0" prefWidth="25.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="565.0" minWidth="8.0" prefWidth="50.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="679.0" minWidth="0.0" prefWidth="98.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="0.0" prefWidth="25.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="8.0" prefWidth="50.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="98.0" minWidth="0.0" prefWidth="98.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="868.0" minWidth="10.0" prefWidth="284.0" />
                      </columnConstraints>
                      <rowConstraints>
@@ -207,7 +235,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Label alignment="CENTER" maxHeight="1.7976931348623157E308" prefHeight="64.0" prefWidth="28.0" style="-fx-background-color: #00537D;" text="3" textFill="WHITE" GridPane.rowSpan="4">
+                        <Label alignment="CENTER" maxHeight="1.7976931348623157E308" prefHeight="64.0" prefWidth="28.0" style="-fx-background-color: #00537D;" text="4" textFill="WHITE" GridPane.rowSpan="4">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -242,9 +270,9 @@
                   </GridPane>
                   <GridPane prefHeight="119.0" prefWidth="960.0" style="-fx-background-color: white;">
                      <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="495.0" minWidth="0.0" prefWidth="25.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="565.0" minWidth="8.0" prefWidth="57.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="679.0" minWidth="0.0" prefWidth="96.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="0.0" prefWidth="25.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="8.0" prefWidth="50.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="98.0" minWidth="0.0" prefWidth="96.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="868.0" minWidth="10.0" prefWidth="242.0" />
                      </columnConstraints>
                      <rowConstraints>
@@ -254,7 +282,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Label alignment="CENTER" maxHeight="1.7976931348623157E308" prefHeight="64.0" prefWidth="28.0" style="-fx-background-color: #00537D;" text="4" textFill="WHITE" GridPane.rowSpan="4">
+                        <Label alignment="CENTER" maxHeight="1.7976931348623157E308" prefHeight="64.0" prefWidth="28.0" style="-fx-background-color: #00537D;" text="5" textFill="WHITE" GridPane.rowSpan="4">
                            <font>
                               <Font size="16.0" />
                            </font>
