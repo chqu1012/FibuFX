@@ -1,0 +1,9 @@
+.search-text-field{
+	-fx-background-color: #E2EBF0;
+	-fx-text-box-border: transparent;
+	-fx-text-fill: #00537D;
+}
+
+.search-text-field:focused {
+    -fx-focus-color: transparent;
+}
