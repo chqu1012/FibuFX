@@ -3,6 +3,7 @@ package de.dc.fibufx.client.controller.cell;
 import java.io.IOException;
 
 import de.dc.fibufx.client.model.Konto;
+import de.dc.fibufx.client.model.KontoTyp;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,7 +27,7 @@ public class BankListCell extends ListCell<Konto> {
 	protected TextField textBezeichnung1;
 
 	@FXML
-	protected ComboBox<?> comboArt1;
+	protected ComboBox<KontoTyp> comboArt1;
 
 	@FXML
 	protected TextField textBestand1;
@@ -72,19 +73,15 @@ public class BankListCell extends ListCell<Konto> {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+				labelArt.textProperty().bind(comboArt1.valueProperty().asString());
+				labelBestand.textProperty().bindBidirectional(textBestand1.textProperty());
+				labelName.textProperty().bindBidirectional(textBezeichnung1.textProperty());
 			}
 
-//			label1.setText(String.valueOf(student.getStudentId()));
-//			label2.setText(student.getName());
-//
-//			if (student.getGender().equals(Student.GENDER.MALE)) {
-//				fxIconGender.setIcon(FontAwesomeIcon.MARS);
-//			} else if (student.getGender().equals(Student.GENDER.FEMALE)) {
-//				fxIconGender.setIcon(FontAwesomeIcon.VENUS);
-//			} else {
-//				fxIconGender.setIcon(FontAwesomeIcon.GENDERLESS);
-//			}
-
+			comboArt1.getSelectionModel().select(item.getTyp());
+			textBestand1.setText(String.valueOf(item.getBestand()));
+			textBezeichnung1.setText(String.valueOf(item.getBezeichnung()));
+			
 			setText(null);
 			setGraphic(root);
 		}
