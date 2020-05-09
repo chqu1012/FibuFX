@@ -145,7 +145,7 @@ public class BuchungenController extends BaseBuchungenController {
 			HttpEntity<Buchung> request = new HttpEntity<>(buchung);
 			buchung = restTemplate.postForObject("http://localhost:2001/createBuchung", request, Buchung.class);
 			
-			buchungen.add(buchung);
+			buchungen.add(0, buchung);
 			
 			textEinnahmenBetrag.setText("");
 			textEinnahmenBeschreibung.setText("");
@@ -155,8 +155,8 @@ public class BuchungenController extends BaseBuchungenController {
 		}else if (source == menuItemNeueAusgabe) {
 			TextInputDialog dialog = new TextInputDialog();
 			dialog.setTitle("Neue Ausgabevorlage");
-			dialog.setHeaderText("Name für Ausgabevorlage");
-			dialog.setContentText("Geben Sie einen Namen für die Ausgabe ein");
+			dialog.setHeaderText("Name fï¿½r Ausgabevorlage");
+			dialog.setContentText("Geben Sie einen Namen fï¿½r die Ausgabe ein");
 			dialog.showAndWait().ifPresent(name -> {
 				Buchungsvorgang vorgang = new Buchungsvorgang();
 				vorgang.setName(name);
@@ -169,8 +169,8 @@ public class BuchungenController extends BaseBuchungenController {
 		}else if (source == menuItemNeueEinnahme) {
 			TextInputDialog dialog = new TextInputDialog();
 			dialog.setTitle("Neue Einnahmevorlage");
-			dialog.setHeaderText("Name für Einnahmevorlage");
-			dialog.setContentText("Geben Sie einen Namen für die Ausgabe ein");
+			dialog.setHeaderText("Name fï¿½r Einnahmevorlage");
+			dialog.setContentText("Geben Sie einen Namen fï¿½r die Ausgabe ein");
 			dialog.showAndWait().ifPresent(name -> {
 				Buchungsvorgang vorgang = new Buchungsvorgang();
 				vorgang.setName(name);

@@ -13,6 +13,7 @@ import de.dc.fibufx.client.model.Benutzer;
 import de.dc.fibufx.client.model.Buchung;
 import de.dc.fibufx.client.model.Buchungstype;
 import de.dc.fibufx.client.model.Buchungsvorgang;
+import de.dc.fibufx.client.model.Konto;
 import de.dc.fibufx.client.service.StammdatenService;
 import javafx.application.Application;
 import javafx.application.HostServices;
@@ -76,13 +77,6 @@ public class FibufxClient extends Application{
 	public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
 		return args -> {
 			try {
-				System.out.println("** BENUTZER *******************************************************************************");
-				Benutzer[] benutzer = restTemplate.getForObject(
-						"http://localhost:2001/kunden", Benutzer[].class);
-				for (Benutzer b : benutzer) {
-					System.out.println(b);
-				}
-				System.out.println("** VORGANG  *******************************************************************************");
 				Buchungsvorgang[] vorgangsListe = restTemplate.getForObject("http://localhost:2001/data/buchungsvorgang", Buchungsvorgang[].class);
 				for (Buchungsvorgang vorgang : vorgangsListe) {
 					if (vorgang.getTyp()==Buchungstype.EINNAHME) {
@@ -94,6 +88,9 @@ public class FibufxClient extends Application{
 				
 				Buchung[] buchungen = restTemplate.getForObject("http://localhost:2001/buchungen", Buchung[].class);
 				stammdatenService.getBuchungen().addAll(buchungen);
+				
+				 Konto[] konten = restTemplate.getForObject("http://localhost:2001/data/konto", Konto[].class);
+				 stammdatenService.getKonten().addAll(konten);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

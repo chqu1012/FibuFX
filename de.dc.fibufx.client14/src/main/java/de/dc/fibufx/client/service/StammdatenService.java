@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import de.dc.fibufx.client.model.Buchung;
 import de.dc.fibufx.client.model.Buchungsvorgang;
+import de.dc.fibufx.client.model.Konto;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -13,6 +14,7 @@ public class StammdatenService {
 	private ObservableList<Buchungsvorgang> einnahmenTypen = FXCollections.observableArrayList();
 	private ObservableList<Buchungsvorgang> ausgabenTypen = FXCollections.observableArrayList();
 	private ObservableList<Buchung> buchungen = FXCollections.observableArrayList();
+	private ObservableList<Konto> konten = FXCollections.observableArrayList();
 
 	public ObservableList<Buchung> getBuchungen(){
 		return buchungen;
@@ -32,5 +34,9 @@ public class StammdatenService {
 	
 	public ObservableList<Buchungsvorgang> getAusgabenTypen(){
 		return ausgabenTypen;
+	}
+
+	public ObservableList<Konto> getKonten() {
+		return konten;
 	}
 }

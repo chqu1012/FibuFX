@@ -21,6 +21,10 @@ public class Buchung {
 	@JoinColumn(name = "vorgang_id", referencedColumnName = "id")
 	private Buchungsvorgang vorgang;
 
+	@OneToOne(cascade = CascadeType.MERGE)
+	@JoinColumn(name = "konto_id", referencedColumnName = "id")
+	private Konto konto;
+
 	private double betrag;
 	private String beschreibung;
 	private LocalDate datum;
@@ -28,7 +32,15 @@ public class Buchung {
 
 	public Buchung() {
 	}
-	
+
+	public Konto getKonto() {
+		return konto;
+	}
+
+	public void setKonto(Konto konto) {
+		this.konto = konto;
+	}
+
 	public Long getId() {
 		return id;
 	}

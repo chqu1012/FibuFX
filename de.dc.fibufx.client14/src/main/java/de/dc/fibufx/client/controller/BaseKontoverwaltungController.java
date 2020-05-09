@@ -1,5 +1,6 @@
 package de.dc.fibufx.client.controller;
-import de.dc.fibufx.client.model.Bank;
+import de.dc.fibufx.client.model.Konto;
+import de.dc.fibufx.client.model.KontoTyp;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -13,7 +14,7 @@ public abstract class BaseKontoverwaltungController {
     protected TextField textKontoName;
 
     @FXML
-    protected ComboBox<?> comboKasse;
+    protected ComboBox<KontoTyp> comboKasse;
 
     @FXML
     protected TextField textBestad;
@@ -22,7 +23,7 @@ public abstract class BaseKontoverwaltungController {
     protected Button buttonKontoErstellen;
 
     @FXML
-    protected ListView<Bank> listViewKonto;
+    protected ListView<Konto> listViewKonto;
 
     @FXML
     protected abstract void onButtonAction(ActionEvent event);

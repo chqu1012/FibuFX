@@ -2,7 +2,7 @@ package de.dc.fibufx.client.controller.cell;
 
 import java.io.IOException;
 
-import de.dc.fibufx.client.model.Bank;
+import de.dc.fibufx.client.model.Konto;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,8 +14,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
-public class BankListCell extends ListCell<Bank> {
-
+public class BankListCell extends ListCell<Konto> {
+ 
 	@FXML
 	protected StackPane root;
 
@@ -58,7 +58,7 @@ public class BankListCell extends ListCell<Bank> {
 	private FXMLLoader mLLoader;
 
 	@Override
-	protected void updateItem(Bank item, boolean empty) {
+	protected void updateItem(Konto item, boolean empty) {
 		super.updateItem(item, empty);
 		if (empty || item == null) {
 			setText(null);
