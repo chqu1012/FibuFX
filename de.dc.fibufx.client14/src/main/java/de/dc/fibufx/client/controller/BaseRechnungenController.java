@@ -25,6 +25,12 @@ public abstract class BaseRechnungenController {
 	protected FlowPane paneBestehendeKonten;
 	
     @FXML
+    protected Label labelYear;
+    
+    @FXML
+    protected Label labelMonth;
+
+    @FXML
     protected Label labelDate;
 
     @FXML
