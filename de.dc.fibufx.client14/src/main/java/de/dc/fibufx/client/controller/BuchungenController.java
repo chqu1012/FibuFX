@@ -56,12 +56,12 @@ public class BuchungenController extends BaseBuchungenController {
 	
 	public void initialize() {
 		columnType.setCellFactory(e-> new BuchungTypeTableCell());
-		columnType.setCellValueFactory(new PropertyValueFactory<Buchung, Buchungsvorgang>("vorgang"));
+		columnType.setCellValueFactory(new PropertyValueFactory<>("vorgang"));
 		columnVorgang.setCellFactory(e -> new BuchungVorgangTableCell());
-		columnVorgang.setCellValueFactory(new PropertyValueFactory<Buchung, Buchungsvorgang>("vorgang"));
-		columnBeschreibungen.setCellValueFactory(new PropertyValueFactory<Buchung, String>("beschreibung"));
-		columnBetrag.setCellValueFactory(new PropertyValueFactory<Buchung, String>("betrag"));
-		columnDatum.setCellValueFactory(new PropertyValueFactory<Buchung, String>("datum"));
+		columnVorgang.setCellValueFactory(new PropertyValueFactory<>("vorgang"));
+		columnBeschreibungen.setCellValueFactory(new PropertyValueFactory<>("beschreibung"));
+		columnBetrag.setCellValueFactory(new PropertyValueFactory<>("betrag"));
+		columnDatum.setCellValueFactory(new PropertyValueFactory<>("datum"));
 		
 		steuerTypen.addAll(Arrays.asList("0", "7", "19"));
 		
@@ -191,6 +191,7 @@ public class BuchungenController extends BaseBuchungenController {
 		buchung.setBetrag(Double.parseDouble(textEinnahmenBetrag.getText()));
 		buchung.setDatum(datepickerEinnahmenDatum.getValue());
 		buchung.setErstelltAm(LocalDateTime.now());
+		buchung.setBeschreibung(textEinnahmenBeschreibung.getText());
 		buchung.setVorgang(comboEinnahmenVorgang.getSelectionModel().getSelectedItem());
 		buchung.setKonto(currentKontoProperty.get());
 		HttpEntity<Buchung> request = new HttpEntity<>(buchung);
