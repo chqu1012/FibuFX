@@ -22,7 +22,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="600.0" minWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.241" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dc.fibufx.client.controller.BuchungenController">
+<BorderPane fx:id="root" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="600.0" minWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.241" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dc.fibufx.client.controller.BuchungenController">
    <center>
       <SplitPane dividerPositions="0.2612687813021703" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity">
          <items>
@@ -72,7 +72,7 @@
             </SplitPane>
             <SplitPane dividerPositions="0.20892857142857144" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
                <items>
-                  <TitledPane animated="false" collapsible="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="699.0" text="Neue Buchung" SplitPane.resizableWithParent="false">
+                  <TitledPane animated="false" collapsible="false" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefWidth="699.0" text="Neue Buchung" SplitPane.resizableWithParent="false">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -81,10 +81,13 @@
                            <children>
                               <GridPane fx:id="paneEinnahmen" hgap="5.0" vgap="5.0" StackPane.alignment="TOP_LEFT">
                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="-Infinity" prefWidth="120.0" />
                                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="184.0" minWidth="10.0" prefWidth="161.0" />
                                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" />
                                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" />
                                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" />
                                     <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="100.0" />
                                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="100.0" />
                                 </columnConstraints>
@@ -93,21 +96,25 @@
                                   <RowConstraints fillHeight="false" maxHeight="-Infinity" minHeight="10.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Label text="Vorgang" />
-                                    <ComboBox fx:id="comboEinnahmenVorgang" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.rowIndex="1" />
-                                    <Label text="Betrag" GridPane.columnIndex="1" />
-                                    <TextField fx:id="textEinnahmenBetrag" maxWidth="-Infinity" prefHeight="29.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <ComboBox fx:id="comboEinnahmenSteuersatz" maxWidth="-Infinity" prefWidth="80.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                                    <Label text="Steuersatz" GridPane.columnIndex="2" />
-                                    <Label text="Datum" GridPane.columnIndex="3" />
-                                    <DatePicker fx:id="datepickerEinnahmenDatum" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                                    <Label text="Beschreibung" GridPane.columnIndex="4" />
-                                    <Button fx:id="buttonEinnahmenErstellen" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onButtonAction" text="Erstellen" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                                    <Label text="Vorgang" GridPane.columnIndex="1" />
+                                    <ComboBox fx:id="comboEinnahmenVorgang" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Label text="Betrag" GridPane.columnIndex="2" />
+                                    <TextField fx:id="textEinnahmenBetrag" maxWidth="-Infinity" prefHeight="29.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                    <ComboBox fx:id="comboEinnahmenSteuersatz" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="80.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                    <Label text="Steuersatz" GridPane.columnIndex="3" />
+                                    <Label text="Datum" GridPane.columnIndex="5" />
+                                    <DatePicker fx:id="datepickerEinnahmenDatum" prefWidth="150.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                                    <Label text="Beschreibung" GridPane.columnIndex="7" />
+                                    <Button fx:id="buttonEinnahmenErstellen" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onButtonAction" text="Erstellen" GridPane.columnIndex="8" GridPane.rowIndex="1">
                                        <GridPane.margin>
                                           <Insets />
                                        </GridPane.margin>
                                     </Button>
-                                    <TextField fx:id="textEinnahmenBeschreibung" maxWidth="1.7976931348623157E308" GridPane.columnIndex="4" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+                                    <TextField fx:id="textEinnahmenBeschreibung" maxWidth="1.7976931348623157E308" GridPane.columnIndex="7" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+                                    <Button fx:id="buttonNextDay" minWidth="35.0" mnemonicParsing="false" onAction="#onButtonAction" text="&gt;" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+                                    <Button fx:id="buttonPreviousDay" mnemonicParsing="false" text="&lt;" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                                    <Label text="Konto" />
+                                    <Label fx:id="labelKonto" maxWidth="1.7976931348623157E308" GridPane.rowIndex="1" />
                                  </children>
                               </GridPane>
                            </children>

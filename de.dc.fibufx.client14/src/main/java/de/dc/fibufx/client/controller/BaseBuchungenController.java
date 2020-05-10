@@ -1,23 +1,35 @@
 package de.dc.fibufx.client.controller;
 
 import de.dc.fibufx.client.model.Buchung;
-import de.dc.fibufx.client.model.Buchungstype;
 import de.dc.fibufx.client.model.Buchungsvorgang;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
 public abstract class BaseBuchungenController {
 
+	@FXML
+	protected Label labelKonto;
+	
+	@FXML
+	protected Button buttonPreviousDay;
+
+	@FXML
+	protected Button buttonNextDay;
+	
+	@FXML
+	protected BorderPane root;
+	
 	@FXML
 	protected MenuItem menuItemBuchungLoeschen;
 

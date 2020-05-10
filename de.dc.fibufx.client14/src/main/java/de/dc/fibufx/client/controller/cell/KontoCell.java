@@ -1,6 +1,9 @@
 package de.dc.fibufx.client.controller.cell;
 import java.io.IOException;
 
+import org.greenrobot.eventbus.EventBus;
+
+import de.dc.fibufx.client.event.EventContext;
 import de.dc.fibufx.client.model.Konto;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,8 +23,11 @@ public class KontoCell extends HBox{
     @FXML
     protected Label labelName;
 
+	private Konto konto;
+
     public KontoCell(Konto konto) {
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/de/dc/fibufx/client/cell/KontoCell.fxml"));
+    	this.konto = konto;
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/de/dc/fibufx/client/cell/KontoCell.fxml"));
     	loader.setRoot(this);
     	loader.setController(this);
     	try {
@@ -35,7 +41,7 @@ public class KontoCell extends HBox{
     
     @FXML
     protected void onMouseClicked(MouseEvent event) {
-    	
+    	EventBus.getDefault().postSticky(new EventContext<>("/open/buchung/page", konto));
     }
 
 }
