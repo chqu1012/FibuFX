@@ -112,9 +112,9 @@
                                     </Button>
                                     <TextField fx:id="textEinnahmenBeschreibung" maxWidth="1.7976931348623157E308" GridPane.columnIndex="7" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
                                     <Button fx:id="buttonNextDay" minWidth="35.0" mnemonicParsing="false" onAction="#onButtonAction" text="&gt;" GridPane.columnIndex="6" GridPane.rowIndex="1" />
-                                    <Button fx:id="buttonPreviousDay" mnemonicParsing="false" text="&lt;" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                                    <Button fx:id="buttonPreviousDay" mnemonicParsing="false" onAction="#onButtonAction" text="&lt;" GridPane.columnIndex="4" GridPane.rowIndex="1" />
                                     <Label text="Konto" />
-                                    <Label fx:id="labelKonto" maxWidth="1.7976931348623157E308" GridPane.rowIndex="1" />
+                                    <Label fx:id="labelKonto" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="24.0" minWidth="-Infinity" style="-fx-background-color: gray; -fx-text-fill: white; -fx-background-radius: 3;" GridPane.rowIndex="1" />
                                  </children>
                               </GridPane>
                            </children>

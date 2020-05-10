@@ -12,6 +12,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.client.RestTemplate;
 
+import de.dc.fibufx.client.controller.cell.BuchungBetragTableCell;
 import de.dc.fibufx.client.controller.cell.BuchungTypeTableCell;
 import de.dc.fibufx.client.controller.cell.BuchungVorgangTableCell;
 import de.dc.fibufx.client.controller.cell.BuchungsvorgangListCell;
@@ -55,6 +56,7 @@ public class BuchungenController extends BaseBuchungenController {
 	private ObjectProperty<Konto> currentKontoProperty = new SimpleObjectProperty<>();
 	
 	public void initialize() {
+		columnBetrag.setCellFactory(e-> new BuchungBetragTableCell());
 		columnType.setCellFactory(e-> new BuchungTypeTableCell());
 		columnType.setCellValueFactory(new PropertyValueFactory<>("vorgang"));
 		columnVorgang.setCellFactory(e -> new BuchungVorgangTableCell());

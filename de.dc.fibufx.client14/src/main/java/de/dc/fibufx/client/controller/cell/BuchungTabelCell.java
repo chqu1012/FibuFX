@@ -12,9 +12,10 @@ public abstract class BuchungTabelCell<T> extends TableCell<Buchung, T>{
 		if (item==null || empty) {
 			setText(null);
 			setGraphic(null);
+			setStyle(null);
 		}else {
-			setText(getTextValue(item));
 			setGraphic(createGraphic(item));
+			setText(getTextValue(item));
 		}
 	}
 

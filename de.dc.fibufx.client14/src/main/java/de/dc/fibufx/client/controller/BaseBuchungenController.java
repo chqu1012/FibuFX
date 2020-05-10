@@ -88,7 +88,7 @@ public abstract class BaseBuchungenController {
     protected TableColumn<Buchung, String> columnDatum;
 
     @FXML
-    protected TableColumn<Buchung, String> columnBetrag;
+    protected TableColumn<Buchung, Double> columnBetrag;
 
     @FXML
     protected TableColumn<Buchung, String> columnSteuersatz;
