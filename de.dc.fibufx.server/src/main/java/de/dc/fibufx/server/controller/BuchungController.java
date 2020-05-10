@@ -39,6 +39,11 @@ public class BuchungController {
 	public List<Buchung> findAllBuchungenByMonth(@RequestParam(name = "start") String start, @RequestParam("end") String end) {
 		return buchungRepository.findAllByStartAndEndDate(LocalDate.parse(start), LocalDate.parse(end));
 	}
+
+	@GetMapping("/buchungenOfMonthByKonto")
+	public List<Buchung> findAllBuchungenByMonthByKonto(@RequestParam(name = "start") String start, @RequestParam("end") String end, @RequestParam("konto") String konto) {
+		return buchungRepository.findAllByStartAndEndDateByKonto(LocalDate.parse(start), LocalDate.parse(end), Long.valueOf(konto));
+	}
 	
 	@PostMapping(value = "/createBuchungsvorgang", consumes = "application/json", produces = "application/json")
 	public Buchungsvorgang create(@RequestBody Buchungsvorgang buchung) {
