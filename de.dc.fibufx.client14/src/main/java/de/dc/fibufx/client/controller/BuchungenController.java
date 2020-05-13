@@ -55,6 +55,8 @@ public class BuchungenController extends BaseBuchungenController {
 	
 	private ObjectProperty<Konto> currentKontoProperty = new SimpleObjectProperty<>();
 	
+	private YearMonth current = YearMonth.now();
+	
 	public void initialize() {
 		columnBetrag.setCellFactory(e-> new BuchungBetragTableCell());
 		columnType.setCellFactory(e-> new BuchungTypeTableCell());
@@ -108,17 +110,25 @@ public class BuchungenController extends BaseBuchungenController {
 			labelKonto.setText(input.getBezeichnung());
 			buchungen.clear();
 			
-			LocalDate now = LocalDate.now();
-
-			YearMonth month = YearMonth.from(now);
-			LocalDate start = month.atDay(1);
-			LocalDate end   = month.atEndOfMonth();
-			
-			Long konto = input.getId();
-			buchungen.addAll(restTemplate.getForObject("http://localhost:2001/buchungenOfMonthByKonto?start={start}&end={end}&konto={konto}", Buchung[].class, start, end, konto));
+			updateBuchungList(input);
 			
 			root.toFront();
 		}
+	}
+
+	@Subscribe
+	public void updateDate(EventContext<YearMonth> context) {
+		if (context.getId().equals("/update/selected/year/month")) {
+			current = context.getInput();
+		}
+	}
+	
+	public void updateBuchungList(Konto input) {
+		LocalDate start = current.atDay(1);
+		LocalDate end   = current.atEndOfMonth();
+		
+		Long konto = input.getId();
+		buchungen.addAll(restTemplate.getForObject("http://localhost:2001/buchungenOfMonthByKonto?start={start}&end={end}&konto={konto}", Buchung[].class, start, end, konto));
 	}
 	
 	private void selectAusgaben(ObservableValue<? extends Buchungsvorgang> observable, Buchungsvorgang oldValue, Buchungsvorgang newValue) {
