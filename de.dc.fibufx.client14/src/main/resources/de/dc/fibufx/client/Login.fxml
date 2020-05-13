@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.241" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dc.fibufx.client.controller.LoginController">
+   <center>
+      <TitledPane alignment="CENTER" collapsible="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" text="LOGIN DIALOG" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+         <content>
+            <BorderPane prefHeight="200.0" prefWidth="200.0">
+               <center>
+                  <VBox alignment="TOP_CENTER" spacing="10.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="129.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/icons8-name-100.png" />
+                           </image>
+                        </ImageView>
+                        <TextField fx:id="textUsername" promptText="Username" styleClass="search-text-field" />
+                        <PasswordField fx:id="textPassword" promptText="Password" styleClass="search-text-field" />
+                        <HBox>
+                           <children>
+                              <Hyperlink fx:id="linkPasswordVergessen" alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#onButtonAction" text="Password vergessen" HBox.hgrow="ALWAYS" />
+                              <Button fx:id="buttonLogin" mnemonicParsing="false" onAction="#onButtonAction" prefHeight="31.0" prefWidth="116.0" text="Login" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Noch nicht registriert?" />
+                              <Hyperlink fx:id="linkHierRegistrieren" alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#onButtonAction" text="Hier registrieren" />
+                           </children>
+                        </HBox>
+                     </children>
+                     <BorderPane.margin>
+                        <Insets />
+                     </BorderPane.margin>
+                     <padding>
+                        <Insets left="200.0" right="200.0" top="100.0" />
+                     </padding>
+                  </VBox>
+               </center>
+            </BorderPane>
+         </content>
+      </TitledPane>
+   </center>
+   <stylesheets>
+      <URL value="@css/TitledPane.css" />
+      <URL value="@css/SearchText.css" />
+   </stylesheets>
+</BorderPane>

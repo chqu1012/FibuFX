@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import de.dc.fibufx.client.controller.cell.KontoCell;
+import de.dc.fibufx.client.controller.dialog.DialogHelper;
 import de.dc.fibufx.client.event.EventContext;
 import de.dc.fibufx.client.model.Buchung;
 import de.dc.fibufx.client.model.Buchungstype;
@@ -35,6 +36,12 @@ public class RechnungenController extends BaseRechnungenController {
 	SpinnerValueFactory<Integer> yearFactory;
 	
 	public void initialize() {
+		try {
+			stammdatenService.getKonten().forEach(e->paneBestehendeKonten.getChildren().add(new KontoCell(e)));
+		} catch (Exception e) {
+			DialogHelper.openException(e);
+		}
+
 		LocalDate now = LocalDate.now();
 		YearMonth month = YearMonth.from(now);
 
@@ -44,8 +51,6 @@ public class RechnungenController extends BaseRechnungenController {
 		monthFactory.valueProperty().addListener(this::updateOnMonthSpinnerChanged);
 		yearFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, now.getYear()*100, now.getYear());
 		yearFactory.valueProperty().addListener(this::updateOnYearSpinnerChanged);
-		
-		stammdatenService.getKonten().forEach(e->paneBestehendeKonten.getChildren().add(new KontoCell(e)));
 		
 		monthFactory.setValue(now.getMonth());
 		spinnerMonth.setValueFactory(monthFactory);
@@ -83,9 +88,17 @@ public class RechnungenController extends BaseRechnungenController {
 		long countAusgabe = buchungenOfMonth.stream().filter(e-> e.getVorgang().getTyp()==Buchungstype.AUSGABE).count();
 		long countEingabe = buchungenOfMonth.stream().filter(e-> e.getVorgang().getTyp()==Buchungstype.EINNAHME).count();
 		Optional<Double> totalEingabe = buchungenOfMonth.stream().filter(e-> e.getVorgang().getTyp()==Buchungstype.EINNAHME).map(Buchung::getBetrag).reduce((e1,e2)->e1+e2);
-		totalEingabe.ifPresent(e->labelForderungen.setText("+ "+String.valueOf(e)+" €"));
+		if (totalEingabe.isPresent()) {
+			labelForderungen.setText("+"+String.valueOf(totalEingabe.get())+"€");
+		}else {
+			labelForderungen.setText("+ 0€");
+		}
 		Optional<Double> totalAusgabe = buchungenOfMonth.stream().filter(e-> e.getVorgang().getTyp()==Buchungstype.AUSGABE).map(Buchung::getBetrag).reduce((e1,e2)->e1+e2);
-		totalAusgabe.ifPresent(e->labelVerbindlichkeit.setText("- "+String.valueOf(e)+" €"));
+		if (totalAusgabe.isPresent()) {
+			labelVerbindlichkeit.setText("-"+String.valueOf(totalAusgabe.get())+"€");
+		}else {
+			labelVerbindlichkeit.setText("-0€");
+		}
 		
 		labelForderungenCount.setText(String.valueOf(countEingabe));
 		labelVerbindlichkeitCount.setText(String.valueOf(countAusgabe));

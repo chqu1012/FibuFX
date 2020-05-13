@@ -26,17 +26,30 @@ public class MainController extends BaseMainController {
 
 	private Map<Label, Parent> pageMap = new HashMap<>();
 
-	private Parent load(Label label, String fxml) {
+	public void initialize() {
+		root.getTop().setDisable(true);
+		
+		Parent login = load("Login.fxml");
+		stackPane.getChildren().add(login);
+		login.toFront();
+	}
+
+	public Parent load(String fxml) {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/de/dc/fibufx/client/" + fxml));
 		fxmlLoader.setControllerFactory(springContext::getBean);
 		try {
 			Parent node = fxmlLoader.load();
-			pageMap.put(label, root);
 			return node;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return stackPane;
+	}
+
+	private Parent load(Label label, String fxml) {
+		Parent node = load(fxml);
+		pageMap.put(label, root);
+		return node;
 	}
 
 	@Override

@@ -9,6 +9,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
+import de.dc.fibufx.client.controller.dialog.DialogHelper;
 import de.dc.fibufx.client.model.Benutzer;
 import de.dc.fibufx.client.model.Buchung;
 import de.dc.fibufx.client.model.Buchungstype;
@@ -17,6 +18,7 @@ import de.dc.fibufx.client.model.Konto;
 import de.dc.fibufx.client.service.StammdatenService;
 import javafx.application.Application;
 import javafx.application.HostServices;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -92,7 +94,7 @@ public class FibufxClient extends Application{
 				 Konto[] konten = restTemplate.getForObject("http://localhost:2001/data/konto", Konto[].class);
 				 stammdatenService.getKonten().addAll(konten);
 			} catch (Exception e) {
-				e.printStackTrace();
+				Platform.runLater(() -> DialogHelper.openException(e));
 			}
 		};
 	}

@@ -19,6 +19,7 @@ import de.dc.fibufx.client.controller.cell.BuchungsvorgangListCell;
 import de.dc.fibufx.client.controller.cell.SteuersatzListCell;
 import de.dc.fibufx.client.controller.converter.BuchungsvorgangComboConvertor;
 import de.dc.fibufx.client.controller.converter.SteuersatzComboConvertor;
+import de.dc.fibufx.client.controller.dialog.DialogHelper;
 import de.dc.fibufx.client.event.EventContext;
 import de.dc.fibufx.client.model.Buchung;
 import de.dc.fibufx.client.model.Buchungstype;
@@ -57,8 +58,14 @@ public class BuchungenController extends BaseBuchungenController {
 	private YearMonth current = YearMonth.now();
 	
 	public void initialize() {
-		filteredEinnahmeTypen = new FilteredList<>(stammdatenService.getEinnahmenTypen());
-		filteredAusgabeTypen = new FilteredList<>(stammdatenService.getAusgabenTypen());
+		try {
+			filteredEinnahmeTypen = new FilteredList<>(stammdatenService.getEinnahmenTypen());
+			filteredAusgabeTypen = new FilteredList<>(stammdatenService.getAusgabenTypen());
+			buchungen.addAll(stammdatenService.getBuchungen());
+			comboEinnahmenVorgang.setItems(stammdatenService.getEinnahmenTypen());
+		} catch (Exception e) {
+			DialogHelper.openException(e);
+		}
 		
 		columnBetrag.setCellFactory(e-> new BuchungBetragTableCell());
 		columnType.setCellFactory(e-> new BuchungTypeTableCell());
@@ -71,8 +78,6 @@ public class BuchungenController extends BaseBuchungenController {
 		
 		steuerTypen.addAll(Arrays.asList("0", "7", "19"));
 		
-		buchungen.addAll(stammdatenService.getBuchungen());
-		
 		listViewEinnahmen.setItems(filteredEinnahmeTypen);
 		listViewEinnahmen.setCellFactory(e->new BuchungsvorgangListCell());
 		listViewAusgaben.setItems(filteredAusgabeTypen);
@@ -80,7 +85,6 @@ public class BuchungenController extends BaseBuchungenController {
 		comboEinnahmenSteuersatz.setItems(steuerTypen);
 		comboEinnahmenSteuersatz.setCellFactory(e-> new SteuersatzListCell());
 		comboEinnahmenSteuersatz.setConverter(new SteuersatzComboConvertor());
-		comboEinnahmenVorgang.setItems(stammdatenService.getEinnahmenTypen());
 		comboEinnahmenVorgang.setCellFactory(e-> new BuchungsvorgangListCell());
 		comboEinnahmenVorgang.setConverter(new BuchungsvorgangComboConvertor()); 
 		sortedBuchungen.comparatorProperty().bind(tableViewBuchungen.comparatorProperty());
