@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.client.RestTemplate;
 
 import de.dc.fibufx.client.controller.cell.BankListCell;
+import de.dc.fibufx.client.controller.cell.BuchungsvorgangListCell;
 import de.dc.fibufx.client.model.Buchungstype;
 import de.dc.fibufx.client.model.Buchungsvorgang;
 import de.dc.fibufx.client.model.Konto;
@@ -47,7 +48,9 @@ public class KontoverwaltungController extends BaseKontoverwaltungController {
 		filteredAusgaben = new FilteredList<>(dataAusgaben);
 
 		listViewAusgaben.setItems(filteredAusgaben);
+		listViewAusgaben.setCellFactory(e-> new BuchungsvorgangListCell());
 		listViewEinnnahmen.setItems(filteredEinnahmen);
+		listViewEinnnahmen.setCellFactory(e-> new BuchungsvorgangListCell());
 
 		labelAusgabenCount.textProperty().bind(Bindings.size(dataAusgaben).asString());
 		labelEinnahmenCount.textProperty().bind(Bindings.size(dataEinnahmen).asString());

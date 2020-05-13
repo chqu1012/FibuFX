@@ -42,13 +42,11 @@ public class BuchungenController extends BaseBuchungenController {
 	@Autowired StammdatenService stammdatenService;
 	@Autowired RestTemplate restTemplate;
 	
-	private ObservableList<Buchungsvorgang> einnahmeTypen = FXCollections.observableArrayList();
-	private ObservableList<Buchungsvorgang> ausgabeTypen = FXCollections.observableArrayList();
 	private ObservableList<Buchung> buchungen = FXCollections.observableArrayList();
 	private ObservableList<String> steuerTypen = FXCollections.observableArrayList();
 
-	private FilteredList<Buchungsvorgang> filteredEinnahmeTypen = new FilteredList<>(einnahmeTypen);
-	private FilteredList<Buchungsvorgang> filteredAusgabeTypen = new FilteredList<>(ausgabeTypen);
+	private FilteredList<Buchungsvorgang> filteredEinnahmeTypen;
+	private FilteredList<Buchungsvorgang> filteredAusgabeTypen;
 	private FilteredList<Buchung> filteredBuchungen = new FilteredList<>(buchungen);
 
 	private SortedList<Buchung> sortedBuchungen = new SortedList<Buchung>(filteredBuchungen);
@@ -58,6 +56,9 @@ public class BuchungenController extends BaseBuchungenController {
 	private YearMonth current = YearMonth.now();
 	
 	public void initialize() {
+		filteredEinnahmeTypen = new FilteredList<>(stammdatenService.getEinnahmenTypen());
+		filteredAusgabeTypen = new FilteredList<>(stammdatenService.getAusgabenTypen());
+		
 		columnBetrag.setCellFactory(e-> new BuchungBetragTableCell());
 		columnType.setCellFactory(e-> new BuchungTypeTableCell());
 		columnType.setCellValueFactory(new PropertyValueFactory<>("vorgang"));
@@ -69,8 +70,6 @@ public class BuchungenController extends BaseBuchungenController {
 		
 		steuerTypen.addAll(Arrays.asList("0", "7", "19"));
 		
-		einnahmeTypen.addAll(stammdatenService.getEinnahmenTypen());
-		ausgabeTypen.addAll(stammdatenService.getAusgabenTypen());
 		buchungen.addAll(stammdatenService.getBuchungen());
 		
 		listViewEinnahmen.setItems(filteredEinnahmeTypen);
@@ -80,7 +79,7 @@ public class BuchungenController extends BaseBuchungenController {
 		comboEinnahmenSteuersatz.setItems(steuerTypen);
 		comboEinnahmenSteuersatz.setCellFactory(e-> new SteuersatzListCell());
 		comboEinnahmenSteuersatz.setConverter(new SteuersatzComboConvertor());
-		comboEinnahmenVorgang.setItems(einnahmeTypen);
+		comboEinnahmenVorgang.setItems(stammdatenService.getEinnahmenTypen());
 		comboEinnahmenVorgang.setCellFactory(e-> new BuchungsvorgangListCell());
 		comboEinnahmenVorgang.setConverter(new BuchungsvorgangComboConvertor()); 
 		sortedBuchungen.comparatorProperty().bind(tableViewBuchungen.comparatorProperty());
@@ -133,14 +132,14 @@ public class BuchungenController extends BaseBuchungenController {
 	
 	private void selectAusgaben(ObservableValue<? extends Buchungsvorgang> observable, Buchungsvorgang oldValue, Buchungsvorgang newValue) {
 		if (newValue!=null) {
-			comboEinnahmenVorgang.setItems(ausgabeTypen);
+			comboEinnahmenVorgang.setItems(stammdatenService.getEinnahmenTypen());
 			comboEinnahmenVorgang.setValue(newValue);
 		}
 	}
 
 	private void selectEinnahmen(ObservableValue<? extends Buchungsvorgang> observable, Buchungsvorgang oldValue, Buchungsvorgang newValue) {
 		if (newValue!=null) {
-			comboEinnahmenVorgang.setItems(einnahmeTypen);
+			comboEinnahmenVorgang.setItems(stammdatenService.getEinnahmenTypen());
 			comboEinnahmenVorgang.setValue(newValue);
 		}
 	}
@@ -227,7 +226,7 @@ public class BuchungenController extends BaseBuchungenController {
 			vorgang.setTyp(Buchungstype.AUSGABE);
 			HttpEntity<Buchungsvorgang> request = new HttpEntity<>(vorgang);
 			vorgang = restTemplate.postForObject("http://localhost:2001/createBuchungsvorgang", request, Buchungsvorgang.class);
-			ausgabeTypen.add(vorgang);
+			stammdatenService.getAusgabenTypen().add(vorgang);
 		});
 	}
 
@@ -243,7 +242,7 @@ public class BuchungenController extends BaseBuchungenController {
 			vorgang.setTyp(Buchungstype.EINNAHME);
 			HttpEntity<Buchungsvorgang> request = new HttpEntity<>(vorgang);
 			vorgang = restTemplate.postForObject("http://localhost:2001/createBuchungsvorgang", request, Buchungsvorgang.class);
-			einnahmeTypen.add(vorgang);
+			stammdatenService.getEinnahmenTypen().add(vorgang);
 		});
 	}
 }
