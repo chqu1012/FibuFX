@@ -4,9 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.client.RestTemplate;
 
 import de.dc.fibufx.client.controller.cell.BankListCell;
 import de.dc.fibufx.client.controller.cell.BuchungsvorgangListCell;
@@ -14,6 +12,7 @@ import de.dc.fibufx.client.model.Buchungstype;
 import de.dc.fibufx.client.model.Buchungsvorgang;
 import de.dc.fibufx.client.model.Konto;
 import de.dc.fibufx.client.model.KontoTyp;
+import de.dc.fibufx.client.service.RestService;
 import de.dc.fibufx.client.service.StammdatenService;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ObservableValue;
@@ -25,11 +24,9 @@ import javafx.event.ActionEvent;
 @Controller
 public class KontoverwaltungController extends BaseKontoverwaltungController {
 
-	@Autowired
-	StammdatenService stammdatenService;
-	@Autowired
-	RestTemplate restTemplate;
-
+	@Autowired StammdatenService stammdatenService;
+	@Autowired RestService restService;
+	
 	private ObservableList<Konto> bankList = FXCollections.observableArrayList();
 
 	private FilteredList<Buchungsvorgang> filteredEinnahmen;
@@ -102,10 +99,8 @@ public class KontoverwaltungController extends BaseKontoverwaltungController {
 		vorgang.setName(textBuchungstypeName.getText());
 		Buchungstype type = isEinnahmen ? Buchungstype.EINNAHME : Buchungstype.AUSGABE;
 		vorgang.setTyp(type);
+		vorgang = restService.createBuchungsvorgang(vorgang);
 		
-		HttpEntity<Buchungsvorgang> request = new HttpEntity<>(vorgang);
-		vorgang = restTemplate.postForObject("http://localhost:2001/createBuchungsvorgang", request, Buchungsvorgang.class);
-
 		if (isEinnahmen) {
 			stammdatenService.getEinnahmenTypen().add(vorgang);
 		}else {
@@ -120,10 +115,7 @@ public class KontoverwaltungController extends BaseKontoverwaltungController {
 		konto.setBezeichnung(textKontoName.getText());
 		konto.setErstellt(LocalDate.now());
 		konto.setTyp(comboKasse.getSelectionModel().getSelectedItem());
-
-		HttpEntity<Konto> request = new HttpEntity<>(konto);
-		konto = restTemplate.postForObject("http://localhost:2001/createKonto", request, Konto.class);
-
+		konto = restService.createKonto(konto);
 		bankList.add(0, konto);
 
 		textBestad.setText("");

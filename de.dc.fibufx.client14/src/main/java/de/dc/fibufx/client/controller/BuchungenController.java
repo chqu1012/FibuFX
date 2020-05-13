@@ -24,6 +24,7 @@ import de.dc.fibufx.client.model.Buchung;
 import de.dc.fibufx.client.model.Buchungstype;
 import de.dc.fibufx.client.model.Buchungsvorgang;
 import de.dc.fibufx.client.model.Konto;
+import de.dc.fibufx.client.service.RestService;
 import de.dc.fibufx.client.service.StammdatenService;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -40,7 +41,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class BuchungenController extends BaseBuchungenController {
 
 	@Autowired StammdatenService stammdatenService;
-	@Autowired RestTemplate restTemplate;
+	@Autowired RestService restService;
 	
 	private ObservableList<Buchung> buchungen = FXCollections.observableArrayList();
 	private ObservableList<String> steuerTypen = FXCollections.observableArrayList();
@@ -127,7 +128,7 @@ public class BuchungenController extends BaseBuchungenController {
 		LocalDate end   = current.atEndOfMonth();
 		
 		Long konto = input.getId();
-		buchungen.addAll(restTemplate.getForObject("http://localhost:2001/buchungenOfMonthByKonto?start={start}&end={end}&konto={konto}", Buchung[].class, start, end, konto));
+		buchungen.addAll(restService.findBuchungen(start, end, konto));
 	}
 	
 	private void selectAusgaben(ObservableValue<? extends Buchungsvorgang> observable, Buchungsvorgang oldValue, Buchungsvorgang newValue) {
@@ -205,8 +206,7 @@ public class BuchungenController extends BaseBuchungenController {
 		buchung.setBeschreibung(textEinnahmenBeschreibung.getText());
 		buchung.setVorgang(comboEinnahmenVorgang.getSelectionModel().getSelectedItem());
 		buchung.setKonto(currentKontoProperty.get());
-		HttpEntity<Buchung> request = new HttpEntity<>(buchung);
-		buchung = restTemplate.postForObject("http://localhost:2001/createBuchung", request, Buchung.class);
+		buchung = restService.save(buchung);
 		
 		buchungen.add(0, buchung);
 		
@@ -224,8 +224,7 @@ public class BuchungenController extends BaseBuchungenController {
 			vorgang.setName(name);
 			vorgang.setErstelltAm(LocalDateTime.now());
 			vorgang.setTyp(Buchungstype.AUSGABE);
-			HttpEntity<Buchungsvorgang> request = new HttpEntity<>(vorgang);
-			vorgang = restTemplate.postForObject("http://localhost:2001/createBuchungsvorgang", request, Buchungsvorgang.class);
+			vorgang = restService.save(vorgang);
 			stammdatenService.getAusgabenTypen().add(vorgang);
 		});
 	}
@@ -240,8 +239,7 @@ public class BuchungenController extends BaseBuchungenController {
 			vorgang.setName(name);
 			vorgang.setErstelltAm(LocalDateTime.now());
 			vorgang.setTyp(Buchungstype.EINNAHME);
-			HttpEntity<Buchungsvorgang> request = new HttpEntity<>(vorgang);
-			vorgang = restTemplate.postForObject("http://localhost:2001/createBuchungsvorgang", request, Buchungsvorgang.class);
+			vorgang = restService.save(vorgang);
 			stammdatenService.getEinnahmenTypen().add(vorgang);
 		});
 	}
