@@ -15,7 +15,6 @@ import de.dc.fibufx.client.model.Konto;
 import de.dc.fibufx.client.model.KontoTyp;
 import de.dc.fibufx.client.service.StammdatenService;
 import javafx.beans.binding.Bindings;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -98,13 +97,16 @@ public class KontoverwaltungController extends BaseKontoverwaltungController {
 		Buchungsvorgang vorgang = new Buchungsvorgang();
 		vorgang.setErstelltAm(LocalDateTime.now());
 		vorgang.setName(textBuchungstypeName.getText());
+		Buchungstype type = isEinnahmen ? Buchungstype.EINNAHME : Buchungstype.AUSGABE;
+		vorgang.setTyp(type);
+		
+		HttpEntity<Buchungsvorgang> request = new HttpEntity<>(vorgang);
+		vorgang = restTemplate.postForObject("http://localhost:2001/createBuchungsvorgang", request, Buchungsvorgang.class);
+
 		if (isEinnahmen) {
-			vorgang.setTyp(Buchungstype.EINNAHME);
 			stammdatenService.getEinnahmenTypen().add(vorgang);
 		}else {
-			vorgang.setTyp(Buchungstype.AUSGABE);
 			stammdatenService.getAusgabenTypen().add(vorgang);
-			
 		}
 	}
 
