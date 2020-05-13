@@ -22,9 +22,9 @@
             <HBox alignment="CENTER_RIGHT" maxWidth="1400.0" prefHeight="38.0" prefWidth="600.0" spacing="10.0">
                <children>
                   <Label text="Aktueller Buchungszeitraum:" />
-                  <Spinner fx:id="spinnerMonth" prefHeight="25.0" prefWidth="110.0" />
-                  <Spinner fx:id="spinnerYear" prefHeight="25.0" prefWidth="96.0" />
-                  <Button fx:id="buttonHeute" mnemonicParsing="false" onAction="#onButtonAction" text="Heute" />
+                  <Spinner fx:id="spinnerMonth" onMouseClicked="#onMouseClicked" prefHeight="25.0" prefWidth="110.0" />
+                  <Spinner fx:id="spinnerYear" onMouseClicked="#onMouseClicked" prefHeight="25.0" prefWidth="96.0" />
+                  <Button fx:id="buttonHeute" mnemonicParsing="false" onAction="#onButtonAction" onMouseClicked="#onMouseClicked" text="Heute" />
                </children>
             </HBox>
             <GridPane maxWidth="1400.0" prefHeight="119.0" prefWidth="960.0" style="-fx-background-color: white;">
