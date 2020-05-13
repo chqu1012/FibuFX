@@ -12,6 +12,7 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -54,65 +55,80 @@
                      <items>
                         <SplitPane dividerPositions="0.5" orientation="VERTICAL" SplitPane.resizableWithParent="false">
                            <items>
-                              <VBox prefHeight="200.0" prefWidth="100.0">
-                                 <children>
-                                    <TextField fx:id="textSearchEinnahmen" promptText="Suche nach Einnahmenvorlageb" />
-                                    <ListView fx:id="listViewEinnnahmen" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                                       <contextMenu>
-                                          <ContextMenu>
-                                            <items>
-                                              <MenuItem fx:id="menuItemBuchungstypeLoeschen" mnemonicParsing="false" onAction="#onButtonAction" text="Löschen" />
-                                            </items>
-                                          </ContextMenu>
-                                       </contextMenu>
-                                    </ListView>
-                                    <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="470.0" spacing="10.0">
+                              <TitledPane collapsible="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Einnahmen Vorlage">
+                                 <content>
+                                    <VBox prefHeight="200.0" prefWidth="100.0">
                                        <children>
-                                          <Label text="Einnahmen:" />
-                                          <Label fx:id="labelEinnahmenCount" text="0" />
+                                          <TextField fx:id="textSearchEinnahmen" promptText="Suche nach Einnahmenvorlagen" styleClass="search-text-field" />
+                                          <ListView fx:id="listViewEinnnahmen" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                             <contextMenu>
+                                                <ContextMenu>
+                                                  <items>
+                                                    <MenuItem fx:id="menuItemEinnahmenLoeschen" mnemonicParsing="false" onAction="#onButtonAction" text="Löschen" />
+                                                  </items>
+                                                </ContextMenu>
+                                             </contextMenu>
+                                          </ListView>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="470.0" spacing="10.0">
+                                             <children>
+                                                <Label text="Einnahmen:" />
+                                                <Label fx:id="labelEinnahmenCount" text="0" />
+                                             </children>
+                                          </HBox>
                                        </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                              <VBox>
-                                 <children>
-                                    <TextField fx:id="textSearchAusgaben" promptText="Suche nach Ausgabenvorlagen" />
-                                    <ListView fx:id="listViewAusgaben" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                                       <contextMenu>
-                                          <ContextMenu>
-                                             <items>
-                                                <MenuItem fx:id="menuItemBuchungstypeLoeschen1" mnemonicParsing="false" onAction="#onButtonAction" text="Löschen" />
-                                             </items>
-                                          </ContextMenu>
-                                       </contextMenu>
-                                    </ListView>
-                                    <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="470.0" spacing="10.0">
+                                    </VBox>
+                                 </content>
+                              </TitledPane>
+                              <TitledPane collapsible="false" text="Ausnahmen Vorlage">
+                                 <content>
+                                    <VBox>
                                        <children>
-                                          <Label text="Ausgaben:" />
-                                          <Label fx:id="labelAusgabenCount" text="0" />
+                                          <TextField fx:id="textSearchAusgaben" promptText="Suche nach Ausgabenvorlagen" styleClass="search-text-field" />
+                                          <ListView fx:id="listViewAusgaben" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                             <contextMenu>
+                                                <ContextMenu>
+                                                   <items>
+                                                      <MenuItem fx:id="menuItemAusgabeLoeschen" mnemonicParsing="false" onAction="#onButtonAction" text="Löschen" />
+                                                   </items>
+                                                </ContextMenu>
+                                             </contextMenu>
+                                          </ListView>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="470.0" spacing="10.0">
+                                             <children>
+                                                <Label text="Ausgaben:" />
+                                                <Label fx:id="labelAusgabenCount" text="0" />
+                                             </children>
+                                          </HBox>
                                        </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
+                                    </VBox>
+                                 </content>
+                              </TitledPane>
                            </items>
                         </SplitPane>
-                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="3.0">
-                           <children>
-                              <Label text="Typ" />
-                              <ComboBox fx:id="comboBuchungstype" prefWidth="150.0" />
-                              <Label text="Name" />
-                              <TextField fx:id="textBuchungstypeName" />
-                              <Label text="Anschrift" />
-                              <TextField fx:id="textBuchungstypeAnschrift" />
-                              <Label text="Mobilnummer" />
-                              <TextField fx:id="textBuchungstypeMobilnummer" />
-                              <Label text="Identification" />
-                              <TextField fx:id="textBuchungstypeIdentification" />
-                              <Label text="Notiz" />
-                              <TextField fx:id="textBuchungstypeNotiz" />
-                              <Button fx:id="buttonBuchungsvorgangErstellen" mnemonicParsing="false" onAction="#onButtonAction" text="Erstellen" />
-                           </children>
-                        </VBox>
+                        <TitledPane collapsible="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Neue Buchungsvorlage erstellen">
+                           <content>
+                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="3.0">
+                                 <children>
+                                    <Label text="Typ" />
+                                    <ComboBox fx:id="comboBuchungstype" prefWidth="150.0" />
+                                    <Label text="Name" />
+                                    <TextField fx:id="textBuchungstypeName" styleClass="search-text-field" />
+                                    <Label text="Anschrift" />
+                                    <TextField fx:id="textBuchungstypeAnschrift" styleClass="search-text-field" />
+                                    <Label text="Mobilnummer" />
+                                    <TextField fx:id="textBuchungstypeMobilnummer" styleClass="search-text-field" />
+                                    <Label text="Identification" />
+                                    <TextField fx:id="textBuchungstypeIdentification" styleClass="search-text-field" />
+                                    <Label text="Notiz" />
+                                    <TextField fx:id="textBuchungstypeNotiz" styleClass="search-text-field" />
+                                    <Button fx:id="buttonBuchungsvorgangErstellen" mnemonicParsing="false" onAction="#onButtonAction" text="Erstellen" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                 </padding>
+                              </VBox>
+                           </content>
+                        </TitledPane>
                      </items>
                      <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -125,5 +141,7 @@
    <stylesheets>
       <URL value="@css/Kontenverwaltung.css" />
       <URL value="@css/SplitPane.css" />
+      <URL value="@css/TitledPane.css" />
+      <URL value="@css/SearchText.css" />
    </stylesheets>
 </BorderPane>

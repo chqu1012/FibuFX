@@ -13,6 +13,12 @@ import javafx.scene.control.TextField;
 
 public abstract class BaseKontoverwaltungController {
 
+	@FXML
+	protected MenuItem menuItemAusgabeLoeschen;
+
+	@FXML
+	protected MenuItem menuItemEinnahmenLoeschen;
+	
     @FXML
     protected TextField textKontoName;
 
@@ -38,16 +44,10 @@ public abstract class BaseKontoverwaltungController {
     protected ListView<Buchungsvorgang> listViewEinnnahmen;
 
     @FXML
-    protected MenuItem menuItemBuchungstypeLoeschen;
-
-    @FXML
     protected TextField textSearchAusgaben;
 
     @FXML
     protected ListView<Buchungsvorgang> listViewAusgaben;
-
-    @FXML
-    protected MenuItem menuItemBuchungstypeLoeschen1;
 
     @FXML
     protected Label labelEinnahmenCount;

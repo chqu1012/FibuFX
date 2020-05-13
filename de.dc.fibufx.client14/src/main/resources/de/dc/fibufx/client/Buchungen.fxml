@@ -99,7 +99,7 @@
                                     <Label text="Vorgang" GridPane.columnIndex="1" />
                                     <ComboBox fx:id="comboEinnahmenVorgang" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     <Label text="Betrag" GridPane.columnIndex="2" />
-                                    <TextField fx:id="textEinnahmenBetrag" maxWidth="-Infinity" prefHeight="29.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                    <TextField fx:id="textEinnahmenBetrag" maxWidth="-Infinity" prefHeight="29.0" prefWidth="100.0" styleClass="search-text-field" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                                     <ComboBox fx:id="comboEinnahmenSteuersatz" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="80.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                                     <Label text="Steuersatz" GridPane.columnIndex="3" />
                                     <Label text="Datum" GridPane.columnIndex="5" />
@@ -110,7 +110,7 @@
                                           <Insets />
                                        </GridPane.margin>
                                     </Button>
-                                    <TextField fx:id="textEinnahmenBeschreibung" maxWidth="1.7976931348623157E308" GridPane.columnIndex="7" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
+                                    <TextField fx:id="textEinnahmenBeschreibung" maxWidth="1.7976931348623157E308" styleClass="search-text-field" GridPane.columnIndex="7" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" />
                                     <Button fx:id="buttonNextDay" minWidth="35.0" mnemonicParsing="false" onAction="#onButtonAction" text="&gt;" GridPane.columnIndex="6" GridPane.rowIndex="1" />
                                     <Button fx:id="buttonPreviousDay" mnemonicParsing="false" onAction="#onButtonAction" text="&lt;" GridPane.columnIndex="4" GridPane.rowIndex="1" />
                                     <Label text="Konto" />
